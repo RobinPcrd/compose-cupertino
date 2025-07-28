@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +63,7 @@ mavenPublishing {
     pom {
         name.set(project.name)
         description.set(publishProperties.getProperty("description"))
-        url.set("https://github.com/schott12521/compose-cupertino")
+        url.set("https://github.com/robinpcrd/compose-cupertino")
 
         licenses {
             license {
@@ -77,15 +78,15 @@ mavenPublishing {
                 email.set("sasha.zhirkevich@gmail.com")
             }
             developer {
-                id.set("schott12521")
-                name.set("Scott Lanoue")
-                email.set("schott12521@gmail.com")
+                id.set("robinpcrd")
+                name.set("Robin Picard")
+                email.set("robin.picard.dev@gmail.com")
             }
         }
         scm {
-            connection.set("scm:git:https://github.com/schott12521/compose-cupertino.git")
-            developerConnection.set("scm:git:ssh://github.com/schott12521/compose-cupertino.git")
-            url.set("https://github.com/schott12521/compose-cupertino")
+            connection.set("scm:git:https://github.com/robinpcrd/compose-cupertino.git")
+            developerConnection.set("scm:git:ssh://github.com/robinpcrd/compose-cupertino.git")
+            url.set("https://github.com/robinpcrd/compose-cupertino")
         }
     }
 }

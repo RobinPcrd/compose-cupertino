@@ -6,10 +6,13 @@
 Compose-Cupertino
 Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
 Copyright (c) 2025. Scott Lanoue.
+Copyright (c) 2025. Robin Picard.
 
 This library includes software originally developed at
 alexzhirkevich/compose-cupertino (https://github.com/alexzhirkevich/compose-cupertino).
+and
+schott12521/compose-cupertino (https://github.com/schott12521/compose-cupertino).
 
 This software library was forked, and the original code has been modified.
 The library is being worked on at
-schott12521/compose-cupertino (https://github.com/schott12521/compose-cupertino).
+robinpcrd/compose-cupertino (https://github.com/RobinPcrd/compose-cupertino).

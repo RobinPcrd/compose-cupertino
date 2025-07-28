@@ -1,6 +1,6 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.schott12521/cupertino/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.schott12521/cupertino)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.robinpcrd/cupertino/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.robinpcrd/cupertino)
 
-[![Main Workflow](https://github.com/schott12521/compose-cupertino/actions/workflows/buildAndPush.yml/badge.svg)](https://github.com/schott12521/schott12521/compose-cupertino/actions/workflows/buildAndPush.yml)
+[![Main Workflow](https://github.com/robinpcrd/compose-cupertino/actions/workflows/buildAndPush.yml/badge.svg)](https://github.com/robinpcrd/robinpcrd/compose-cupertino/actions/workflows/buildAndPush.yml)
 
 # compose-cupertino
 
@@ -17,25 +17,25 @@ Additionally this repo has automated builds to enable faster releases, to take a
 
 # Usage
 
-This package is published to Maven Central Repository: [cupertino-core on Maven Central](https://central.sonatype.com/artifact/io.github.schott12521/cupertino-core)
+This package is published to Maven Central Repository: [cupertino-core on Maven Central](https://central.sonatype.com/artifact/io.github.robinpcrd/cupertino-core)
 
-Depend on the [latest version](https://github.com/schott12521/compose-cupertino/releases) by declaring this in libs.versions.toml:
+Depend on the [latest version](https://github.com/robinpcrd/compose-cupertino/releases) by declaring this in libs.versions.toml:
 
 ```
 cupertino = "$latestVersion"
 
-cupertino = { group = "io.github.schott12521", name = "cupertino", version.ref = "cupertino" }
-cupertino-adaptive = { group = "io.github.schott12521", name = "cupertino-adaptive", version.ref = "cupertino" }
-cupertino-decompose = { group = "io.github.schott12521", name = "cupertino-decompose", version.ref = "cupertino" }
-cupertino-native = { group = "io.github.schott12521", name = "cupertino-native", version.ref = "cupertino" }
-cupertino-icons-extended = { group = "io.github.schott12521", name = "cupertino-icons-extended", version.ref = "cupertino" }
+cupertino = { group = "io.github.robinpcrd", name = "cupertino", version.ref = "cupertino" }
+cupertino-adaptive = { group = "io.github.robinpcrd", name = "cupertino-adaptive", version.ref = "cupertino" }
+cupertino-decompose = { group = "io.github.robinpcrd", name = "cupertino-decompose", version.ref = "cupertino" }
+cupertino-native = { group = "io.github.robinpcrd", name = "cupertino-native", version.ref = "cupertino" }
+cupertino-icons-extended = { group = "io.github.robinpcrd", name = "cupertino-icons-extended", version.ref = "cupertino" }
 ```
 
 This package is also available via GitHub packages.
 
 ## Try it
 
-Wanna see what the library feels like? The latest version builds and deploys the Kotlin/WasmJS target to github pages: https://schott12521.github.io/compose-cupertino/
+Wanna see what the library feels like? The latest version builds and deploys the Kotlin/WasmJS target to github pages: https://robinpcrd.github.io/compose-cupertino/
 
 # License
 
