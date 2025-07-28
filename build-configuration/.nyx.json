@@ -1,0 +1,17 @@
+{
+  "preset": "extended",
+  "scheme": "SEMVER",
+  "verbosity": "INFO",
+  "releaseLenient": true,
+  "commitMessageConventions": {
+    "enabled": ["conventionalCommitsForMerge"]
+  },
+  "releaseTypes": {
+    "enabled": ["release"],
+    "items": {
+      "release": {
+        "identifiers": []
+      }
+    }
+  }
+}
