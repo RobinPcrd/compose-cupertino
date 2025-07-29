@@ -134,7 +134,7 @@ object AdaptiveIcons {
     ): ImageVector =
         when (LocalTheme.current) {
             Theme.Cupertino -> cupertino()
-            else -> material()
+            Theme.Material3 -> material()
         }
 
     /**
@@ -150,7 +150,7 @@ object AdaptiveIcons {
     ): Painter =
         when (LocalTheme.current) {
             Theme.Cupertino -> systemImage(cupertino()) ?: rememberVectorPainter(material())
-            else -> rememberVectorPainter(material())
+            Theme.Material3 -> rememberVectorPainter(material())
         }
 }
 

@@ -42,7 +42,8 @@ import com.robinpcrd.cupertino.theme.Typography as CupertinoTypography
 import com.robinpcrd.cupertino.theme.lightColorScheme as cupertinoLightColorScheme
 
 enum class Theme {
-    Cupertino, Material3
+    Cupertino,
+    Material3;
 }
 
 /**
