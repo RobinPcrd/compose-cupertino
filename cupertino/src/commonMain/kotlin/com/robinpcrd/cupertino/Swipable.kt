@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +52,7 @@ import com.robinpcrd.cupertino.SwipeableDefaults.AnimationSpec
 import com.robinpcrd.cupertino.SwipeableDefaults.StandardResistanceFactor
 import com.robinpcrd.cupertino.SwipeableDefaults.VelocityThreshold
 import com.robinpcrd.cupertino.SwipeableDefaults.resistanceConfig
+import com.robinpcrd.cupertino.SwipeableState.Companion.Saver
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter

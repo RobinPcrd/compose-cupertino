@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,13 +75,13 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
-import com.robinpcrd.cupertino.theme.isDark
 import com.robinpcrd.cupertino.CupertinoButtonDefaults.plainButtonColors
 import com.robinpcrd.cupertino.icons.CupertinoIcons
 import com.robinpcrd.cupertino.icons.outlined.MagnifyingGlass
 import com.robinpcrd.cupertino.section.CupertinoSectionTokens
 import com.robinpcrd.cupertino.theme.CupertinoColors
 import com.robinpcrd.cupertino.theme.CupertinoTheme
+import com.robinpcrd.cupertino.theme.isDark
 import com.robinpcrd.cupertino.theme.systemRed
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,10 +40,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.robinpcrd.cupertino.LocalContentColor
 import com.robinpcrd.cupertino.CupertinoHorizontalDivider
 import com.robinpcrd.cupertino.CupertinoIcon
 import com.robinpcrd.cupertino.CupertinoIconDefaults
+import com.robinpcrd.cupertino.LocalContentColor
 import com.robinpcrd.cupertino.ProvideTextStyle
 import com.robinpcrd.cupertino.icons.CupertinoIcons
 import com.robinpcrd.cupertino.icons.outlined.ChevronBackward

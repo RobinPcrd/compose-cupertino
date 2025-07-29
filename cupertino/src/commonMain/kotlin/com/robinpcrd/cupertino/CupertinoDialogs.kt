@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,12 +85,12 @@ import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.robinpcrd.cupertino.theme.isDark
 import com.robinpcrd.cupertino.CupertinoDialogsTokens.AlertDialogTitleMessageSpacing
 import com.robinpcrd.cupertino.section.CupertinoSectionTokens
 import com.robinpcrd.cupertino.theme.BrightSeparatorColor
 import com.robinpcrd.cupertino.theme.CupertinoColors
 import com.robinpcrd.cupertino.theme.CupertinoTheme
+import com.robinpcrd.cupertino.theme.isDark
 import com.robinpcrd.cupertino.theme.systemBlue
 import com.robinpcrd.cupertino.theme.systemGray7
 import com.robinpcrd.cupertino.theme.systemRed

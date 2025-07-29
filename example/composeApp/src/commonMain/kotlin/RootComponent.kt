@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,12 +33,12 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.backhandler.BackDispatcher
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.instancekeeper.getOrCreate
+import com.robinpcrd.cupertino.theme.CupertinoColors
+import com.robinpcrd.cupertino.theme.systemBlue
 import cupertino.CupertinoWidgetsComponent
 import cupertino.DefaultCupertinoWidgetsComponent
 import icons.DefaultIconsComponent
 import icons.IconsComponent
-import com.robinpcrd.cupertino.theme.CupertinoColors
-import com.robinpcrd.cupertino.theme.systemBlue
 import kotlinx.serialization.Serializable
 import sections.DefaultSectionsComponent
 import sections.SectionsComponent

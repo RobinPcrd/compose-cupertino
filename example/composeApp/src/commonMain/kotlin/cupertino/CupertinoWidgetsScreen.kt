@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,8 +39,6 @@
 
 package cupertino
 
-import com.robinpcrd.cupertino.swipebox.CupertinoSwipeBoxItem
-import com.robinpcrd.cupertino.swipebox.rememberCupertinoSwipeBoxState
 import IsIos
 import RootComponent
 import androidx.compose.animation.AnimatedContent
@@ -118,7 +117,6 @@ import com.robinpcrd.cupertino.CupertinoSearchTextField
 import com.robinpcrd.cupertino.CupertinoSearchTextFieldDefaults
 import com.robinpcrd.cupertino.CupertinoSegmentedControl
 import com.robinpcrd.cupertino.CupertinoSegmentedControlTab
-import com.robinpcrd.cupertino.CupertinoSheetValue
 import com.robinpcrd.cupertino.CupertinoSlider
 import com.robinpcrd.cupertino.CupertinoSwipeBox
 import com.robinpcrd.cupertino.CupertinoSwitch
@@ -133,7 +131,6 @@ import com.robinpcrd.cupertino.CupertinoWheelPicker
 import com.robinpcrd.cupertino.ExperimentalCupertinoApi
 import com.robinpcrd.cupertino.MenuAction
 import com.robinpcrd.cupertino.MenuSection
-import com.robinpcrd.cupertino.PresentationDetent
 import com.robinpcrd.cupertino.PresentationStyle
 import com.robinpcrd.cupertino.adaptive.icons.AdaptiveIcons
 import com.robinpcrd.cupertino.adaptive.icons.Add
@@ -182,7 +179,9 @@ import com.robinpcrd.cupertino.section.link
 import com.robinpcrd.cupertino.section.section
 import com.robinpcrd.cupertino.section.sectionContainerBackground
 import com.robinpcrd.cupertino.section.sectionTitle
+import com.robinpcrd.cupertino.swipebox.CupertinoSwipeBoxItem
 import com.robinpcrd.cupertino.swipebox.SwipeBoxStates
+import com.robinpcrd.cupertino.swipebox.rememberCupertinoSwipeBoxState
 import com.robinpcrd.cupertino.theme.CupertinoColors
 import com.robinpcrd.cupertino.theme.CupertinoTheme
 import com.robinpcrd.cupertino.theme.systemBlue

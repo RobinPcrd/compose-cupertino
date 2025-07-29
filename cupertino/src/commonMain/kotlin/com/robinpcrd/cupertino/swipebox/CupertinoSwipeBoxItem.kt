@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,10 +46,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import com.robinpcrd.cupertino.LocalContentColor
 import com.robinpcrd.cupertino.CupertinoIcon
 import com.robinpcrd.cupertino.CupertinoText
 import com.robinpcrd.cupertino.ExperimentalCupertinoApi
+import com.robinpcrd.cupertino.LocalContentColor
 import com.robinpcrd.cupertino.ProvideTextStyle
 import com.robinpcrd.cupertino.cupertinoTween
 import com.robinpcrd.cupertino.theme.CupertinoColors

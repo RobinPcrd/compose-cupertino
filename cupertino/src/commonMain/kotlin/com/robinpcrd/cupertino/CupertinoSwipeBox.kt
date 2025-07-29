@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,13 +57,13 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.robinpcrd.cupertino.section.CupertinoSectionDefaults
 import com.robinpcrd.cupertino.swipebox.AnchorsEffect
+import com.robinpcrd.cupertino.swipebox.CupertinoSwipeActionPosition
+import com.robinpcrd.cupertino.swipebox.CupertinoSwipeBoxActionsBuilder
 import com.robinpcrd.cupertino.swipebox.DismissFullyExpandedEffect
 import com.robinpcrd.cupertino.swipebox.HapticFeedbackEffect
 import com.robinpcrd.cupertino.swipebox.LocalSwipeActionPosition
-import com.robinpcrd.cupertino.swipebox.LocalSwipeBoxState
-import com.robinpcrd.cupertino.swipebox.CupertinoSwipeActionPosition
-import com.robinpcrd.cupertino.swipebox.CupertinoSwipeBoxActionsBuilder
 import com.robinpcrd.cupertino.swipebox.LocalSwipeBoxItemFullSwipe
+import com.robinpcrd.cupertino.swipebox.LocalSwipeBoxState
 import com.robinpcrd.cupertino.swipebox.SwipeBoxStates
 import com.robinpcrd.cupertino.swipebox.rememberCupertinoSwipeBoxState
 import kotlin.math.roundToInt

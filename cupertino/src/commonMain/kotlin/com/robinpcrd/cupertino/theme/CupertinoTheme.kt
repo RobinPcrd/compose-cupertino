@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +26,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalHapticFeedback
-import com.robinpcrd.cupertino.LocalContentColor
-import com.robinpcrd.cupertino.LocalTextStyle
 import com.robinpcrd.cupertino.ExperimentalCupertinoApi
 import com.robinpcrd.cupertino.InternalCupertinoApi
+import com.robinpcrd.cupertino.LocalContentColor
+import com.robinpcrd.cupertino.LocalTextStyle
 import com.robinpcrd.cupertino.SystemBarAppearance
 import com.robinpcrd.cupertino.rememberCupertinoHapticFeedback
 import com.robinpcrd.cupertino.rememberCupertinoIndication

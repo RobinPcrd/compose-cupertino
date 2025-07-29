@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +60,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.robinpcrd.cupertino.LocalContentColor
 import com.robinpcrd.cupertino.CupertinoButtonTokens
 import com.robinpcrd.cupertino.CupertinoDatePickerDefaults
 import com.robinpcrd.cupertino.CupertinoDatePickerState
@@ -72,15 +72,16 @@ import com.robinpcrd.cupertino.CupertinoTextFieldColors
 import com.robinpcrd.cupertino.CupertinoTextFieldDefaults
 import com.robinpcrd.cupertino.CupertinoTimePickerState
 import com.robinpcrd.cupertino.ExperimentalCupertinoApi
+import com.robinpcrd.cupertino.LocalContentColor
 import com.robinpcrd.cupertino.ProvideTextStyle
 import com.robinpcrd.cupertino.copy
 import com.robinpcrd.cupertino.cupertinoTween
+import com.robinpcrd.cupertino.defaultLocale
 import com.robinpcrd.cupertino.icons.CupertinoIcons
 import com.robinpcrd.cupertino.icons.outlined.ChevronDown
 import com.robinpcrd.cupertino.icons.outlined.ChevronUp
 import com.robinpcrd.cupertino.theme.CupertinoTheme
 import com.robinpcrd.cupertino.toStringWithLeadingZero
-import com.robinpcrd.cupertino.defaultLocale
 
 interface SectionScope
 
