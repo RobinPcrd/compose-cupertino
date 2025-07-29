@@ -30,14 +30,14 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.materialkolor.dynamicColorScheme
-import com.slapps.cupertino.adaptive.AdaptiveTheme
-import com.slapps.cupertino.adaptive.CupertinoThemeSpec
-import com.slapps.cupertino.adaptive.ExperimentalAdaptiveApi
-import com.slapps.cupertino.adaptive.MaterialThemeSpec
-import com.slapps.cupertino.adaptive.Theme
-import com.slapps.cupertino.decompose.cupertinoPredictiveBackAnimation
-import com.slapps.cupertino.theme.darkColorScheme
-import com.slapps.cupertino.theme.lightColorScheme
+import com.robinpcrd.cupertino.adaptive.AdaptiveTheme
+import com.robinpcrd.cupertino.adaptive.CupertinoThemeSpec
+import com.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
+import com.robinpcrd.cupertino.adaptive.MaterialThemeSpec
+import com.robinpcrd.cupertino.adaptive.Theme
+import com.robinpcrd.cupertino.decompose.cupertinoPredictiveBackAnimation
+import com.robinpcrd.cupertino.theme.darkColorScheme
+import com.robinpcrd.cupertino.theme.lightColorScheme
 import cupertino.CupertinoWidgetsScreen
 import icons.IconsScreen
 import sections.SectionsScreen
@@ -114,7 +114,7 @@ fun GeneratedAdaptiveTheme(
     target: Theme,
     primaryColor: Color,
     useDarkTheme: Boolean = isSystemInDarkTheme(),
-    shapes: com.slapps.cupertino.adaptive.Shapes = com.slapps.cupertino.adaptive.Shapes(),
+    shapes: com.robinpcrd.cupertino.adaptive.Shapes = com.robinpcrd.cupertino.adaptive.Shapes(),
     content: @Composable () -> Unit
 ) {
     AdaptiveTheme(
@@ -136,7 +136,7 @@ fun GeneratedAdaptiveTheme(
             colorScheme = if (useDarkTheme)
                 darkColorScheme(accent = primaryColor)
             else lightColorScheme(accent = primaryColor),
-            shapes = com.slapps.cupertino.theme.Shapes(
+            shapes = com.robinpcrd.cupertino.theme.Shapes(
                 extraSmall = shapes.extraSmall,
                 small = shapes.small,
                 medium = shapes.medium,

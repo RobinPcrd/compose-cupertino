@@ -109,7 +109,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.slapps.cupertino${name.filter { it.isLetter() }}"
+    namespace = "com.robinpcrd.cupertino${name.filter { it.isLetter() }}"
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
 
     defaultConfig {
