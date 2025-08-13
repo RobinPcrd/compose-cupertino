@@ -32,7 +32,7 @@ import androidx.compose.ui.graphics.Color
  *
  * Depending on current theme, this local will point to the
  * - internal LocalContentColor - for CupertinoTheme
- * - androidx.compose.matarial3.LocalContentColor - for AdaptiveTheme
+ * - androidx.compose.material3.LocalContentColor - for AdaptiveTheme
  *
  * It used as source of local content color in all cupertino widgets.
  * And therefore for AdaptiveTheme there is no difference between using composables like material3

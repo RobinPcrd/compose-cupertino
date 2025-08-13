@@ -17,6 +17,7 @@
  */
 
 import adaptive.AdaptiveWidgetsScreen
+import adaptivevative.AdaptiveNativeWidgetsScreen
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -35,6 +36,7 @@ import com.robinpcrd.cupertino.adaptive.AdaptiveTheme
 import com.robinpcrd.cupertino.adaptive.CupertinoThemeSpec
 import com.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
 import com.robinpcrd.cupertino.adaptive.MaterialThemeSpec
+import com.robinpcrd.cupertino.adaptive.Shapes
 import com.robinpcrd.cupertino.adaptive.Theme
 import com.robinpcrd.cupertino.decompose.cupertinoPredictiveBackAnimation
 import com.robinpcrd.cupertino.theme.darkColorScheme
@@ -102,6 +104,7 @@ fun App(rootComponent: RootComponent) {
                         is RootComponent.Child.Adaptive -> AdaptiveWidgetsScreen(c.component)
                         is RootComponent.Child.Icons -> IconsScreen(c.component)
                         is RootComponent.Child.Sections -> SectionsScreen(c.component)
+                        is RootComponent.Child.AdaptiveNative -> AdaptiveNativeWidgetsScreen(c.component)
                     }
                 }
             }
@@ -115,7 +118,7 @@ fun GeneratedAdaptiveTheme(
     target: Theme,
     primaryColor: Color,
     useDarkTheme: Boolean = isSystemInDarkTheme(),
-    shapes: com.robinpcrd.cupertino.adaptive.Shapes = com.robinpcrd.cupertino.adaptive.Shapes(),
+    shapes: Shapes = Shapes(),
     content: @Composable () -> Unit
 ) {
     AdaptiveTheme(

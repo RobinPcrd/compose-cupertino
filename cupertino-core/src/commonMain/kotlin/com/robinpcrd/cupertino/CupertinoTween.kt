@@ -43,4 +43,4 @@ fun <T> cupertinoTween(
     )
 
 val CupertinoEasing = CubicBezierEasing(0.2833f, 0.99f, 0.31833f, 0.99f)
-private val CupertinoTransitionDuration = 400
+private const val CupertinoTransitionDuration = 400

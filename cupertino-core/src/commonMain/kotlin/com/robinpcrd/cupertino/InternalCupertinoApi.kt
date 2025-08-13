@@ -21,4 +21,5 @@
 package com.robinpcrd.cupertino
 
 @RequiresOptIn("This is internal api used by cupertino modules")
+@Retention(AnnotationRetention.BINARY)
 annotation class InternalCupertinoApi
