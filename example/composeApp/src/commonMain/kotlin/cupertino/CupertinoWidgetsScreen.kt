@@ -147,6 +147,7 @@ import com.robinpcrd.cupertino.icons.filled.Gearshape
 import com.robinpcrd.cupertino.icons.filled.Person
 import com.robinpcrd.cupertino.icons.filled.Pin
 import com.robinpcrd.cupertino.icons.filled.Trash
+import com.robinpcrd.cupertino.icons.outlined.AppleLogo
 import com.robinpcrd.cupertino.icons.outlined.Bookmark
 import com.robinpcrd.cupertino.icons.outlined.FaceSmiling
 import com.robinpcrd.cupertino.icons.outlined.Heart
@@ -1693,13 +1694,30 @@ private fun LinksWithIcons(
         SectionLink(
             icon = {
                 CupertinoLinkIcon(
+                    imageVector = CupertinoIcons.Default.AppleLogo,
+                    containerColor = CupertinoColors.systemGreen
+                )
+            },
+            caption = {
+                Text("Four")
+            },
+            onClick = {
+                onNavigate(RootComponent.Child.AdaptiveNative::class)
+            }
+        ) {
+            CupertinoText("Adaptive Native Widgets")
+        }
+
+        SectionLink(
+            icon = {
+                CupertinoLinkIcon(
                     imageVector = CupertinoIcons.Default.RectangleStack,
                     contentDescription = null,
                     containerColor = CupertinoColors.systemCyan
                 )
             },
             caption = {
-                Text("Four")
+                Text("Five")
             },
             onClick = onSheetClicked
         ) {

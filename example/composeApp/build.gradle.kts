@@ -104,6 +104,7 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
+            implementation("org.maplibre.gl:android-sdk:11.11.0")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

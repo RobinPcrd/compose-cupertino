@@ -20,6 +20,8 @@
 
 import adaptive.AdaptiveWidgetsComponent
 import adaptive.DefaultAdaptiveWidgetsComponent
+import adaptivevative.AdaptiveNativeWidgetsComponent
+import adaptivevative.DefaultAdaptiveNativeWidgetsComponent
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
@@ -73,6 +75,10 @@ interface RootComponent : ComponentContext {
 
         class Sections(
             val component: SectionsComponent,
+        ) : Child
+
+        class AdaptiveNative(
+            val component: AdaptiveNativeWidgetsComponent
         ) : Child
     }
 }
@@ -144,6 +150,15 @@ class DefaultRootComponent(
                     ),
                 )
 
+            Config.AdaptiveNative ->
+                RootComponent.Child.AdaptiveNative(
+                    DefaultAdaptiveNativeWidgetsComponent(
+                        context = context,
+                        onNavigateBack = this::onBack,
+                        isMaterial = model.isMaterial,
+                    ),
+                )
+
             Config.Cupertino ->
                 RootComponent.Child.Cupertino(
                     DefaultCupertinoWidgetsComponent(
@@ -155,6 +170,7 @@ class DefaultRootComponent(
                             val screen =
                                 when (it) {
                                     RootComponent.Child.Adaptive::class -> Config.Adaptive
+                                    RootComponent.Child.AdaptiveNative::class -> Config.AdaptiveNative
                                     RootComponent.Child.Icons::class -> Config.Icons
                                     RootComponent.Child.Sections::class -> Config.Sections
                                     else -> return@DefaultCupertinoWidgetsComponent
@@ -196,5 +212,8 @@ class DefaultRootComponent(
 
         @Serializable
         data object Sections : Config
+
+        @Serializable
+        data object AdaptiveNative : Config
     }
 }
