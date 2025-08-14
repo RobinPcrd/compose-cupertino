@@ -21,7 +21,6 @@
 package com.robinpcrd.cupertino
 
 import androidx.compose.runtime.Composable
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toNSTimeZone
 import platform.Foundation.NSCalendar
@@ -85,7 +84,7 @@ internal actual object PlatformDateFormat {
                     setDateFormat(pattern)
                 }.dateFromString(date) ?: return null
 
-        return Instant
+        return kotlin.time.Instant
             .fromEpochMilliseconds((nsDate.timeIntervalSince1970 * 1000).toLong())
             .toCalendarDate(TimeZone.UTC)
     }

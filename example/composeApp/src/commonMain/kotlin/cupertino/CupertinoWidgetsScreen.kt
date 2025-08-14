@@ -195,10 +195,10 @@ import com.robinpcrd.cupertino.theme.systemPurple
 import com.robinpcrd.cupertino.theme.systemRed
 import com.robinpcrd.cupertino.theme.systemYellow
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.reflect.KClass
+import kotlin.time.Instant
 
 private enum class PickerTab {
     Picker, Time, Date, DateTime

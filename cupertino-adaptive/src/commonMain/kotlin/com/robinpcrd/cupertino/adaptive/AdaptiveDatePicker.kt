@@ -53,7 +53,6 @@ import kotlinx.coroutines.flow.filterNotNull
 
 @OptIn(
     ExperimentalCupertinoApi::class,
-    ExperimentalMaterial3Api::class,
     InternalCupertinoApi::class,
 )
 @ExperimentalAdaptiveApi

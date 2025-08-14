@@ -16,8 +16,6 @@
  * limitations under the License.
  */
 
-import org.jetbrains.compose.compose
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("multiplatform-module-convention")
@@ -27,7 +25,11 @@ plugins {
 }
 
 kotlin {
-
+    compilerOptions {
+        optIn.addAll(
+            "androidx.compose.material3.ExperimentalMaterial3Api",
+        )
+    }
     sourceSets {
         commonMain.dependencies {
             api(projects.cupertino)
@@ -37,7 +39,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.materialIconsExtended)
-            implementation(compose("org.jetbrains.compose.ui:ui-util"))
+            implementation(compose.uiUtil)
         }
     }
 }

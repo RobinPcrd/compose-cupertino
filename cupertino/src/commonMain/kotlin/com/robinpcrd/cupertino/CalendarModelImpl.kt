@@ -16,13 +16,9 @@
  * limitations under the License.
  */
 
-
-
 package com.robinpcrd.cupertino
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.DatePeriod
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
@@ -30,9 +26,12 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.atTime
 import kotlinx.datetime.isoDayNumber
+import kotlinx.datetime.number
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+import kotlin.time.Instant
 
 internal class CalendarModelImpl : CalendarModel {
     override val today: CalendarDate
@@ -40,8 +39,8 @@ internal class CalendarModelImpl : CalendarModel {
             val localDate = Clock.System.now().toLocalDateTime(systemTZ)
             return CalendarDate(
                 year = localDate.year,
-                month = localDate.monthNumber,
-                dayOfMonth = localDate.dayOfMonth,
+                month = localDate.month.number,
+                dayOfMonth = localDate.day,
                 utcTimeMillis =
                     localDate.date
                         .atTime(Midnight)
@@ -87,8 +86,8 @@ internal class CalendarModelImpl : CalendarModel {
         val instant =
             LocalDate(
                 year = year,
-                monthNumber = month,
-                dayOfMonth = 1,
+                month = Month(month),
+                day = 1,
             ).atTime(Midnight)
                 .toInstant(TimeZone.UTC)
 
@@ -113,8 +112,8 @@ internal class CalendarModelImpl : CalendarModel {
     override fun getDayOfWeek(date: CalendarDate): Int =
         LocalDate(
             year = date.year,
-            monthNumber = date.month,
-            dayOfMonth = date.dayOfMonth,
+            month = Month(date.month),
+            day = date.dayOfMonth,
         ).dayOfWeek.isoDayNumber
 
     override fun plusMonths(
@@ -153,12 +152,12 @@ internal class CalendarModelImpl : CalendarModel {
             LocalDate(
                 year = dateTime.year,
                 month = dateTime.month,
-                dayOfMonth = 1,
+                day = 1,
             )
 
         return CalendarMonth(
             year = dateTime.year,
-            month = dateTime.monthNumber,
+            month = dateTime.month.number,
             numberOfDays =
                 dateTime.month
                     .numberOfDays(dateTime.year.isLeapYear()),
@@ -182,8 +181,8 @@ internal fun Instant.toCalendarDate(timeZone: TimeZone): CalendarDate {
 
     return CalendarDate(
         year = dateTime.year,
-        month = dateTime.monthNumber,
-        dayOfMonth = dateTime.dayOfMonth,
+        month = dateTime.month.number,
+        dayOfMonth = dateTime.day,
         utcTimeMillis = toEpochMilliseconds(),
     )
 }

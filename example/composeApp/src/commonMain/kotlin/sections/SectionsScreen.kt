@@ -187,7 +187,7 @@ fun SectionsScreen(component: SectionsComponent) {
                         .background(CupertinoTheme.colorScheme.systemGroupedBackground),
                 contentPadding = pv,
             ) {
-                SectionStyle.values().forEach { style ->
+                SectionStyle.entries.forEach { style ->
                     section(
                         state = sectionState,
                         style = style,
@@ -227,7 +227,7 @@ fun SectionsScreen(component: SectionsComponent) {
                         .fillMaxSize()
                         .padding(pv),
             ) {
-                SectionStyle.values().forEach { style ->
+                SectionStyle.entries.forEach { style ->
                     CupertinoSection(
                         state = sectionState,
                         style = style,

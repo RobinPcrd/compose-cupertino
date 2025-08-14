@@ -21,7 +21,6 @@
 package adaptive
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -85,7 +84,6 @@ import com.robinpcrd.cupertino.rememberCupertinoDatePickerState
 
 @OptIn(
     ExperimentalAdaptiveApi::class,
-    ExperimentalLayoutApi::class,
     ExperimentalCupertinoApi::class,
 )
 @Composable
