@@ -5,7 +5,7 @@ verbosity: INFO
 releaseLenient: true
 changelog:
   sections:
-    "Chore": "(^chore)"
+    "Chore": "^chore$"
     "Additions": "^feature$"
     "Changes": "(^refactor$|^perf$)"
     "Fixes": "^fix$"
