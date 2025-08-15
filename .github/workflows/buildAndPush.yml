@@ -4,57 +4,58 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   infer-release:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     outputs:
       version: ${{ steps.nyx.outputs.version }}
 
     steps:
       - name: "✅ Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: "🤔 Public with Nyx"
+      - name: "🤔 Infer release with Nyx, make changelog"
         id: nyx
         uses: mooltiverse/nyx@main
         env:
-          NYX_VERBOSITY: 'INFO'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NYX_VERBOSITY: 'WARN'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           configurationFile: 'build-configuration/.nyx.json'
-          command: 'publish'
+          command: 'make'
           changelogPath: CHANGELOG.md
 
       - name: "🟢 Release version is ${{ steps.nyx.outputs.version }}"
         run: echo The release version is ${{ steps.nyx.outputs.version }}
 
-      #- name: "✍️ Create Git Tag"
-      #  run: |
-      #    git tag ${{ steps.nyx.outputs.version }}
-      #    git push origin ${{ steps.nyx.outputs.version }}
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "✍️ Create Git Tag"
+        run: |
+          git tag ${{ steps.nyx.outputs.version }}
+          git push origin ${{ steps.nyx.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      #- name: "📖 Read Changelog for Release Notes"
-      #  id: changelog
-      #  run: |
-      #    # Extract the latest changelog entry (assuming a standard Markdown format)
-      #    awk '/^## / {found++} found == 1 {print}' CHANGELOG.md > latest-changelog.md
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "📖 Read Changelog for Release Notes"
+        id: changelog
+        run: |
+          # Extract the latest changelog entry (assuming a standard Markdown format)
+          awk '/^## / {found++} found == 1 {print}' CHANGELOG.md > latest-changelog.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      #- name: "🌊 Create GitHub Release"
-      #  uses: ncipollo/release-action@v1.18.0
-      #  with:
-      #    tag: ${{ steps.nyx.outputs.version }}
-      #    name: Release ${{ steps.nyx.outputs.version }}
-      #    bodyFile: latest-changelog.md
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "🌊 Create GitHub Release"
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          tag: ${{ steps.nyx.outputs.version }}
+          name: Release ${{ steps.nyx.outputs.version }}
+          bodyFile: latest-changelog.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build-and-publish:
     runs-on: macos-latest
@@ -62,7 +63,7 @@ jobs:
 
     steps:
       - name: "✅ Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
@@ -73,7 +74,7 @@ jobs:
           java-version: '21'
 
       - name: "⚙️ Setup Gradle"
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.14.3
 
