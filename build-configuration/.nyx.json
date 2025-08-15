@@ -3,8 +3,11 @@
   "scheme": "SEMVER",
   "verbosity": "INFO",
   "releaseLenient": true,
+  "initialVersion": "3.0.0",
   "commitMessageConventions": {
-    "enabled": ["conventionalCommitsForMerge"]
+    "enabled": [
+      "conventionalCommits"
+    ]
   },
   "releaseTypes": {
     "enabled": ["release"],
