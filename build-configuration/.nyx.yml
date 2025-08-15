@@ -1,4 +1,4 @@
-dryRun: true
+dryRun: false
 preset: extended
 scheme: SEMVER
 verbosity: INFO
