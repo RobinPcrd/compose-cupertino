@@ -5,14 +5,17 @@ verbosity: INFO
 releaseLenient: true
 changelog:
   sections:
-    "Chore": "^chore$"
-    "Additions": "^feature$"
-    "Changes": "(^refactor$|^perf$)"
+    #"Chore": "^chore$"
+    "Additions": "^feat$"
+    "Changes": "(^refactor$|^perf$|^chore$)"
     "Fixes": "^fix$"
     "Continuous Integration": "^ci$"
     "Build": "^build$"
     "Tests": "^test$"
     "Documentation": "^docs$"
+  substitutions:
+    "(?m)#([0-9]+)(?s)": "[#%s](https://github.com/RobinPcrd/compose-cupertino/issues/%s)"
+    "(?m)\\[([a-z0-9]+)\\](?s)": "[[%s](https://github.com/RobinPcrd/compose-cupertino/commit/%s)]"
 commitMessageConventions:
   enabled:
     - conventionalCommits
