@@ -8,7 +8,7 @@ on:
 
 jobs:
   infer-release:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.nyx.outputs.version }}
 
