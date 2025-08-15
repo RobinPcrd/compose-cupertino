@@ -4,6 +4,7 @@ scheme: SEMVER
 verbosity: INFO
 releaseLenient: true
 changelog:
+  includeLatestRelease: true
   sections:
     #"Chore": "^chore$"
     features: "Features"
