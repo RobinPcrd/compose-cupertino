@@ -3,6 +3,16 @@ preset: extended
 scheme: SEMVER
 verbosity: INFO
 releaseLenient: true
+changelog:
+  sections:
+    "Chore": "(^chore)"
+    "Additions": "^feature$"
+    "Changes": "(^refactor$|^perf$)"
+    "Fixes": "^fix$"
+    "Continuous Integration": "^ci$"
+    "Build": "^build$"
+    "Tests": "^test$"
+    "Documentation": "^docs$"
 commitMessageConventions:
   enabled:
     - conventionalCommits
