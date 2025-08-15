@@ -40,6 +40,27 @@ import com.robinpcrd.cupertino.ExperimentalCupertinoApi
 import com.robinpcrd.cupertino.FabPosition
 
 
+/**
+ * A flag in the Cupertino adaptation scope indicating whether the scaffold content
+ * contains native UIKit views.
+ *
+ * When set to true, translucent app bar effects like haze and blur are disabled
+ * to prevent rendering issues with UIKit content on iOS.
+ *
+ * This flag allows proper visual integration when embedding UIKit Views inside Compose.
+ * It applies only to the Cupertino adaptation of AdaptiveScaffold.
+ *
+ * Usage:
+ * ```
+ * AdaptiveScaffold(
+ *     adaptation = {
+ *         cupertino {
+ *             hasUIKitContent = true
+ *         }
+ *     }
+ * ) { ... }
+ * ```
+ */
 @OptIn(ExperimentalCupertinoApi::class)
 @ExperimentalAdaptiveApi
 @Composable
@@ -50,8 +71,10 @@ fun AdaptiveScaffold(
     snackbarHost: @Composable () -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
+    containerColor: Color = Color.Unspecified,
+    contentColor: Color = Color.Unspecified,
     contentWindowInsets: WindowInsets = CupertinoScaffoldDefaults.contentWindowInsets,
-    adaptation : AdaptationScope<ScaffoldAdaptation, ScaffoldAdaptation>.() -> Unit = {},
+    adaptation: AdaptationScope<CupertinoScaffoldAdaptation, ScaffoldAdaptation>.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     AdaptiveWidget(
@@ -59,7 +82,7 @@ fun AdaptiveScaffold(
             ScaffoldAdaptationImpl()
         },
         adaptationScope = adaptation,
-        cupertino = {
+        cupertino = { adaptation ->
             CupertinoScaffold(
                 modifier = modifier,
                 topBar = topBar,
@@ -67,10 +90,11 @@ fun AdaptiveScaffold(
                 snackbarHost = snackbarHost,
                 floatingActionButton = floatingActionButton,
                 floatingActionButtonPosition = floatingActionButtonPosition,
-                containerColor = it.containerColor,
-                contentColor = it.contentColor,
+                containerColor = containerColor.takeOrElse { adaptation.containerColor },
+                contentColor = contentColor.takeOrElse { adaptation.contentColor },
                 contentWindowInsets = contentWindowInsets,
-                content = content
+                content = content,
+                hasUIKitContent = adaptation.hasUIKitContent,
             )
         },
         material = {
@@ -93,65 +117,6 @@ fun AdaptiveScaffold(
     )
 }
 
-@OptIn(ExperimentalCupertinoApi::class)
-@ExperimentalAdaptiveApi
-@Composable
-fun AdaptiveScaffold(
-    modifier: Modifier = Modifier,
-    topBar: @Composable () -> Unit = {},
-    bottomBar: @Composable () -> Unit = {},
-    snackbarHost: @Composable () -> Unit = {},
-    floatingActionButton: @Composable () -> Unit = {},
-    floatingActionButtonPosition: FabPosition = FabPosition.End,
-    containerColor: Color = Color.Unspecified,
-    contentColor: Color = Color.Unspecified,
-    contentWindowInsets: WindowInsets = CupertinoScaffoldDefaults.contentWindowInsets,
-    content: @Composable (PaddingValues) -> Unit
-) {
-    AdaptiveWidget(
-
-        cupertino = {
-            CupertinoScaffold(
-                modifier = modifier,
-                topBar = topBar,
-                bottomBar = bottomBar,
-                snackbarHost = snackbarHost,
-                floatingActionButton = floatingActionButton,
-                floatingActionButtonPosition = floatingActionButtonPosition,
-                containerColor = containerColor.takeOrElse {
-                    CupertinoScaffoldDefaults.containerColor
-                },
-                contentColor = contentColor.takeOrElse {
-                    CupertinoScaffoldDefaults.contentColor
-                },
-                contentWindowInsets = contentWindowInsets,
-                content = content
-            )
-        },
-        material = {
-            Scaffold(
-                modifier = modifier,
-                topBar = topBar,
-                bottomBar = bottomBar,
-                snackbarHost = snackbarHost,
-                floatingActionButton = floatingActionButton,
-                floatingActionButtonPosition = when (floatingActionButtonPosition) {
-                    FabPosition.End -> androidx.compose.material3.FabPosition.End
-                    else -> androidx.compose.material3.FabPosition.Center
-                },
-                containerColor = containerColor.takeOrElse {
-                    MaterialTheme.colorScheme.background
-                },
-                contentColor = contentColor.takeOrElse {
-                    MaterialTheme.colorScheme.onBackground
-                },
-                contentWindowInsets = contentWindowInsets,
-                content = content
-            )
-        }
-    )
-}
-
 @Stable
 class ScaffoldAdaptation internal constructor(
     contentColor: Color,
@@ -160,20 +125,38 @@ class ScaffoldAdaptation internal constructor(
     internal var contentColor by mutableStateOf(contentColor)
     internal var containerColor by mutableStateOf(containerColor)
 }
+
+@Stable
+class CupertinoScaffoldAdaptation internal constructor(
+    contentColor: Color,
+    containerColor: Color,
+    hasUIKitContent: Boolean = false,
+) {
+    internal var contentColor by mutableStateOf(contentColor)
+    internal var containerColor by mutableStateOf(containerColor)
+
+    /**
+     * Set to true when the scaffold content contains native UIKit views.
+     * If true, translucent app bar effects (haze/blur) are disabled to prevent compatibility
+     * issues with platform views on iOS. Defaults to false.
+     */
+    var hasUIKitContent by mutableStateOf(hasUIKitContent)
+}
+
 @OptIn(ExperimentalAdaptiveApi::class)
 @Stable
 private class ScaffoldAdaptationImpl :
-    Adaptation<ScaffoldAdaptation, ScaffoldAdaptation>() {
+    Adaptation<CupertinoScaffoldAdaptation, ScaffoldAdaptation>() {
 
     @Composable
-    override fun rememberCupertinoAdaptation(): ScaffoldAdaptation {
+    override fun rememberCupertinoAdaptation(): CupertinoScaffoldAdaptation {
         val contentColor = CupertinoScaffoldDefaults.contentColor
         val containerColor = CupertinoScaffoldDefaults.containerColor
 
         return remember(contentColor, containerColor) {
-            ScaffoldAdaptation(
+            CupertinoScaffoldAdaptation(
                 contentColor = contentColor,
-                containerColor = containerColor
+                containerColor = containerColor,
             )
         }
     }

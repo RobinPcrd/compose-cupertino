@@ -16,8 +16,6 @@
  * limitations under the License.
  */
 
-
-
 package com.robinpcrd.cupertino
 
 import androidx.compose.foundation.BorderStroke
@@ -30,6 +28,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,12 +37,12 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.robinpcrd.cupertino.theme.CupertinoTheme
-
 
 @Composable
 fun CupertinoSurface(
@@ -60,12 +59,12 @@ fun CupertinoSurface(
     ) {
         Box(
             modifier = modifier
-                .graphicsLayer {
-                    this.shape = shape
-                    this.shadowElevation = shadowElevation.toPx()
-                    this.clip = true
-                }
-                .background(color)
+                .surface(
+                    shape = shape,
+                    backgroundColor = color,
+                    border = null,
+                    shadowElevation = with(LocalDensity.current) { shadowElevation.toPx() }
+                )
                 .semantics(mergeDescendants = false) {
                     isTraversalGroup = true
                 }
@@ -86,6 +85,7 @@ fun CupertinoSurface(
     shape: Shape = RectangleShape,
     color: Color = CupertinoTheme.colorScheme.systemBackground,
     contentColor: Color = LocalContentColor.current,
+    shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     indication: Indication? = LocalIndication.current,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -94,13 +94,12 @@ fun CupertinoSurface(
 
     Box(
         modifier = modifier
-            .clip(shape)
-            .background(color)
-            .let {
-                if (border != null)
-                    it.border(border, shape)
-                else it
-            }
+            .surface(
+                shape = shape,
+                backgroundColor = color,
+                border = border,
+                shadowElevation = with(LocalDensity.current) { shadowElevation.toPx() }
+            )
             .clickable(
                 interactionSource = interactionSource,
                 indication = indication,
@@ -117,58 +116,24 @@ fun CupertinoSurface(
     }
 }
 
-@Deprecated(
-    "Use CupertinoSurface instead",
-    replaceWith = ReplaceWith(
-        "CupertinoSurface(modifier,shape,color,shadowElevation,contentColor,content)",
-        "com.robinpcrd.cupertino.CupertinoSurface"
+@Stable
+private fun Modifier.surface(
+    shape: Shape,
+    backgroundColor: Color,
+    border: BorderStroke?,
+    shadowElevation: Float,
+) =
+    this.then(
+        if (shadowElevation > 0f) {
+            Modifier.graphicsLayer(
+                shadowElevation = shadowElevation,
+                shape = shape,
+                clip = true,
+            )
+        } else {
+            Modifier
+        }
     )
-)
-@Composable
-fun Surface(
-    modifier: Modifier = Modifier,
-    shape: Shape = RectangleShape,
-    color: Color = CupertinoTheme.colorScheme.systemBackground,
-    shadowElevation : Dp = 0.dp,
-    contentColor: Color = LocalContentColor.current,
-    content: @Composable () -> Unit
-) = CupertinoSurface(
-    modifier = modifier,
-    shape = shape,
-    color = color,
-    shadowElevation = shadowElevation,
-    contentColor = contentColor,
-    content = content
-)
-
-@Deprecated(
-    "Use CupertinoSurface instead",
-    replaceWith = ReplaceWith(
-        "CupertinoSurface(onClick,modifier,enabled,shape,color,contentColor,border,indication,interactionSource,content)",
-        "com.robinpcrd.cupertino.CupertinoSurface"
-    )
-)
-@Composable
-fun Surface(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    shape: Shape = RectangleShape,
-    color: Color = CupertinoTheme.colorScheme.systemBackground,
-    contentColor: Color = LocalContentColor.current,
-    border: BorderStroke? = null,
-    indication: Indication? = LocalIndication.current,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable () -> Unit
-) = CupertinoSurface(
-    onClick = onClick,
-    modifier = modifier,
-    enabled = enabled,
-    shape = shape,
-    color = color,
-    contentColor = contentColor,
-    border = border,
-    indication = indication,
-    interactionSource = interactionSource,
-    content = content
-)
+        .then(if (border != null) Modifier.border(border, shape) else Modifier)
+        .background(color = backgroundColor, shape = shape)
+        .clip(shape)

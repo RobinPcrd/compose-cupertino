@@ -79,6 +79,9 @@ import com.robinpcrd.cupertino.theme.CupertinoTheme
  * supports [Accessibility.isReduceTransparencyEnabled]
  * @param appBarsBlurAlpha app bars blur radius. Default radius is similar to iOS one and
  * supports [Accessibility.isReduceTransparencyEnabled]
+ * @param hasUIKitContent Set to true when the scaffold content contains native UIKit views.
+ * When enabled, translucent app bar effects (haze/blur) are disabled to prevent rendering
+ * issues with platform views on iOS. Defaults to false.
  * @param content content of the screen. The lambda receives a [PaddingValues] that should be
  * applied to the content root via [Modifier.padding] and [Modifier.consumeWindowInsets] to
  * properly offset top and bottom bars. If using [Modifier.verticalScroll] or lazy lists,
@@ -99,6 +102,7 @@ fun CupertinoScaffold(
     appBarsBlurAlpha: Float = CupertinoScaffoldDefaults.AppBarsBlurAlpha,
     appBarsBlurRadius: Dp = CupertinoScaffoldDefaults.AppBarsBlurRadius,
     hasNavigationTitle: Boolean = false,
+    hasUIKitContent: Boolean = false,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val scaffoldCoordinates =
@@ -155,6 +159,7 @@ fun CupertinoScaffold(
                 appBarsAlpha = appBarsBlurAlpha,
                 appBarsBlurRadius = appBarsBlurRadius,
                 appBarsState = appbarState,
+                hasUIKitContent = hasUIKitContent,
             )
         }
     }
@@ -165,13 +170,14 @@ private fun ScaffoldLayout(
     appBarsState: AppBarsState,
     topBarHeightLocal: MutableState<Float>,
     fabPosition: FabPosition,
+    contentWindowInsets: WindowInsets,
+    appBarsAlpha: Float,
+    appBarsBlurRadius: Dp,
+    hasUIKitContent: Boolean,
     topBar: @Composable () -> Unit,
     content: @Composable (PaddingValues) -> Unit,
     snackbar: @Composable () -> Unit,
     fab: @Composable () -> Unit,
-    contentWindowInsets: WindowInsets,
-    appBarsAlpha: Float,
-    appBarsBlurRadius: Dp,
     bottomBar: @Composable () -> Unit,
 ) {
     SubcomposeLayout { constraints ->
@@ -362,6 +368,7 @@ private fun ScaffoldLayout(
                                 backgroundColor = topBarColor,
                                 tint = topColor,
                                 blurRadius = appBarsBlurRadius,
+                                enabled = !hasUIKitContent,
                             )
                         }
 
@@ -384,6 +391,7 @@ private fun ScaffoldLayout(
                                 backgroundColor = bottomBarColor,
                                 tint = bottomColor,
                                 blurRadius = appBarsBlurRadius,
+                                enabled = !hasUIKitContent,
                             )
                         }
 

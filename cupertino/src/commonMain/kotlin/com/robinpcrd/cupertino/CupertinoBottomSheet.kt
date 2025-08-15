@@ -59,7 +59,6 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.Json
@@ -67,7 +66,9 @@ import kotlin.jvm.JvmName
 
 /**
  * Content of the Cupertino modal bottom sheet.
- * */
+ *
+ * @param hasUIKitContent Set to true when the scaffold content contains native UIKit views.
+ */
 @Composable
 @ExperimentalCupertinoApi
 fun CupertinoBottomSheetContent(
@@ -83,6 +84,7 @@ fun CupertinoBottomSheetContent(
     appBarsAlpha: Float = LocalAppBarsBlurAlpha.current,
     appBarsBlurRadius: Dp = LocalAppBarsBlurRadius.current,
     hasNavigationTitle: Boolean = false,
+    hasUIKitContent: Boolean = false,
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
@@ -107,6 +109,7 @@ fun CupertinoBottomSheetContent(
                 WindowInsets(bottom = CupertinoBottomSheetTokens.MaxOverflow),
             ),
         content = content,
+        hasUIKitContent = hasUIKitContent,
     )
 }
 

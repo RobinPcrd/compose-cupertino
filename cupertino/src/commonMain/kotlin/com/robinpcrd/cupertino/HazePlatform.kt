@@ -23,11 +23,16 @@ package com.robinpcrd.cupertino
 // Copyright 2023, Christopher Banes and the Haze project contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.platform.LocalDensity
@@ -49,6 +54,7 @@ import com.robinpcrd.cupertino.HazeDefaults.tint
  * @param tint Color to tint the blurred content. Should be translucent, otherwise you will not see
  * the blurred content.
  * @param blurRadius Radius of the blur.
+ * @param enabled Whether the haze should be applied.
  */
 @Composable
 fun Modifier.haze(
@@ -56,15 +62,52 @@ fun Modifier.haze(
     backgroundColor: Color,
     tint: Color = HazeDefaults.tint(backgroundColor),
     blurRadius: Dp = HazeDefaults.blurRadius,
-): Modifier =
-    this then
-        HazeNodeElement(
-            areas = area.toList(),
-            tint = tint,
-            backgroundColor = backgroundColor,
-            blurRadius = blurRadius,
-            density = LocalDensity.current,
-        )
+    enabled: Boolean = true,
+): Modifier = this then if (enabled) {
+    HazeNodeElement(
+        areas = area.toList(),
+        tint = tint,
+        backgroundColor = backgroundColor,
+        blurRadius = blurRadius,
+        density = LocalDensity.current,
+    )
+} else {
+    // Combine all the areas into a single area.
+    val combinedArea = area.fold(Rect.Zero) { acc, rect ->
+        if (acc == Rect.Zero) {
+            rect
+        } else {
+            Rect(
+                left = minOf(acc.left, rect.left),
+                top = minOf(acc.top, rect.top),
+                right = maxOf(acc.right, rect.right),
+                bottom = maxOf(acc.bottom, rect.bottom)
+            )
+        }
+    }
+    // Blend the background color with the tint color
+    val blendedColor = lerp(
+        backgroundColor,
+        tint,
+        tint.alpha
+    )
+
+    if (combinedArea != Rect.Zero) {
+        Modifier.drawWithContent {
+            drawContent()
+            drawRect(
+                color = blendedColor,
+                topLeft = Offset(combinedArea.left, combinedArea.top),
+                size = Size(
+                    width = combinedArea.width,
+                    height = combinedArea.height
+                )
+            )
+        }
+    } else {
+        Modifier.background(blendedColor)
+    }
+}
 
 /**
  * Default values for the [haze] modifiers.

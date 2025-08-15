@@ -17,7 +17,6 @@
  */
 
 
-
 @file:OptIn(
     ExperimentalCupertinoApi::class
 )
@@ -250,16 +249,15 @@ fun CupertinoWidgetsScreen(
         topBar = {
             TopBarSample(
                 scrollState = scrollState,
-                nativePickers = nativePickers.value,
                 component = component
             )
         },
         bottomBar = {
             BottomBarSample(
                 scrollState = scrollState,
-                nativePickers = nativePickers.value
             )
-        }
+        },
+        hasUIKitContent = nativePickers.value,
     ) { pv ->
         Body(
             paddingValues = pv,
@@ -507,7 +505,9 @@ private fun SwipeBoxExample(scrollableState: ScrollableState) {
         println("Action triggered with message: $message")
     }
 
-    val openSwipeBoxState = remember { mutableStateOf<AnchoredDraggableState<SwipeBoxStates>?>(null) }
+    val openSwipeBoxState = remember {
+        mutableStateOf<AnchoredDraggableState<SwipeBoxStates>?>(null)
+    }
 
     val state0 = rememberCupertinoSwipeBoxState(
         key = "swipeBox0",
@@ -730,7 +730,6 @@ private fun SwipeBoxExample(scrollableState: ScrollableState) {
 @Composable
 private fun TopBarSample(
     scrollState: ScrollState,
-    nativePickers: Boolean,
     component: CupertinoWidgetsComponent
 ) {
     val density = LocalDensity.current
@@ -748,8 +747,7 @@ private fun TopBarSample(
     }
 
     CupertinoTopAppBar(
-        // Currently UIKitView doesn't work inside a container with translucent app bars
-        isTranslucent = isTransparent || !(IsIos && nativePickers),
+        isTranslucent = isTransparent || IsIos,
         isTransparent = isTransparent,
         actions = {
             CupertinoIconButton(
@@ -779,7 +777,6 @@ private fun TopBarSample(
 @Composable
 private fun BottomBarSample(
     scrollState: ScrollState,
-    nativePickers: Boolean
 ) {
     var tab by remember {
         mutableStateOf(0)
@@ -788,8 +785,7 @@ private fun BottomBarSample(
     val isTransparent = scrollState.isNavigationBarTransparent
 
     CupertinoNavigationBar(
-        // Currently UIKitView doesn't work inside a container with translucent app bars
-        isTranslucent = isTransparent || !(IsIos && nativePickers),
+        isTranslucent = isTransparent || IsIos,
         isTransparent = isTransparent,
     ) {
         CupertinoNavigationBarItem(
@@ -850,7 +846,7 @@ private fun SheetSample(
                 },
                 isTransparent = sheetListState.isTopBarTransparent
             )
-        }
+        },
     ) { pv ->
         LazyColumn(
             modifier = Modifier.fillMaxSize(),

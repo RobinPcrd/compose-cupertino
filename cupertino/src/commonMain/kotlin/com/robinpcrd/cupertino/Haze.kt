@@ -51,12 +51,14 @@ internal fun Modifier.haze(
     tint: Color = HazeDefaults.tint(backgroundColor),
     blurRadius: Dp = HazeDefaults.blurRadius,
     cornerRadius: Dp = 0.dp,
+    enabled: Boolean = true,
 ): Modifier =
     haze(
         *area,
         tint = tint,
         backgroundColor = backgroundColor,
         blurRadius = blurRadius,
+        enabled = enabled,
 //    cornerRadius = cornerRadius
     )
 

@@ -110,10 +110,16 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
-            implementation("org.maplibre.gl:android-sdk:11.11.0")
+            implementation(libs.maplibre.android.sdk)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+        }
+
+        iosMain {
+            dependencies {
+                implementation(libs.snizzors)
+            }
         }
     }
 }

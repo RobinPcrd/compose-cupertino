@@ -97,6 +97,7 @@ import kotlin.math.roundToInt
  * input
  * @param topBar top app bar of the screen, typically a [CupertinoTopAppBar]
  * to have no color.
+ * @param hasUIKitContent Set to true when the scaffold content contains native UIKit views.
  * @param content content of the screen. The lambda receives a [PaddingValues] that should be
  * applied to the content root via [Modifier.padding] and [Modifier.consumeWindowInsets] to
  * properly offset top and bottom bars. If using [Modifier.verticalScroll], apply this modifier to
@@ -124,6 +125,7 @@ fun CupertinoBottomSheetScaffold(
     appBarsBlurAlpha: Float = CupertinoScaffoldDefaults.AppBarsBlurAlpha,
     appBarsBlurRadius: Dp = CupertinoScaffoldDefaults.AppBarsBlurRadius,
     hasNavigationTitle: Boolean = false,
+    hasUIKitContent: Boolean = false,
     applyContentScaling: Boolean = CupertinoBottomSheetScaffoldDefaults.ApplyContentScaling,
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -177,7 +179,8 @@ fun CupertinoBottomSheetScaffold(
         colors = colors,
         sheetShape = sheetShape,
         contentWindowInsets = windowInsets,
-        applyContentScaling = applyContentScaling
+        applyContentScaling = applyContentScaling,
+        hasUIKitContent = hasUIKitContent,
     )
 }
 
@@ -359,8 +362,6 @@ private fun StandardBottomSheet(
                             (sheetSize.height - height).coerceAtLeast(0f)
                         }
                         is CupertinoSheetValue.Hidden -> layoutHeight
-
-                        else -> null
                     }
                 },
         shape = shape,
@@ -468,7 +469,8 @@ private fun BottomSheetScaffoldLayout(
     appBarsBlurAlpha: Float = CupertinoScaffoldDefaults.AppBarsBlurAlpha,
     appBarsBlurRadius: Dp = CupertinoScaffoldDefaults.AppBarsBlurRadius,
     hasNavigationTitle: Boolean = false,
-    applyContentScaling: Boolean = true
+    applyContentScaling: Boolean,
+    hasUIKitContent: Boolean,
 ) {
     val density = LocalDensity.current
 
@@ -573,6 +575,7 @@ private fun BottomSheetScaffoldLayout(
             appBarsBlurAlpha = appBarsBlurAlpha,
             appBarsBlurRadius = appBarsBlurRadius,
             hasNavigationTitle = hasNavigationTitle,
+            hasUIKitContent = hasUIKitContent,
         )
 
         if (!sheetState.isBackgroundInteractive) {

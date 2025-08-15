@@ -51,6 +51,7 @@ import com.robinpcrd.cupertino.CupertinoText
 import com.robinpcrd.cupertino.CupertinoTopAppBar
 import com.robinpcrd.cupertino.ExperimentalCupertinoApi
 import com.robinpcrd.cupertino.adaptive.AdaptiveWidget
+import com.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
 import com.robinpcrd.cupertino.default
 import com.robinpcrd.cupertino.icons.CupertinoIcons
 import com.robinpcrd.cupertino.icons.filled.Airtag
@@ -886,7 +887,7 @@ import com.robinpcrd.cupertino.icons.outlined.Yensign
 import com.robinpcrd.cupertino.icons.outlined.Zzz
 import com.robinpcrd.cupertino.icons.outlined._4kTv
 
-@OptIn(ExperimentalCupertinoApi::class)
+@OptIn(ExperimentalCupertinoApi::class, ExperimentalAdaptiveApi::class)
 @Composable
 fun IconsScreen(
     component: IconsComponent
@@ -908,7 +909,6 @@ fun IconsScreen(
         topBar = {
             CupertinoTopAppBar(
                 navigationIcon = {
-
                     AdaptiveWidget(
                         cupertino = {
                             CupertinoNavigateBackButton(
@@ -955,7 +955,7 @@ fun IconsScreen(
                     }
                 }
             )
-        }
+        },
     ) { pv ->
 
         var selectedIcon by remember {
