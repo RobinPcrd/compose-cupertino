@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +17,7 @@
  */
 
 import adaptive.AdaptiveWidgetsScreen
+import adaptivevative.AdaptiveNativeWidgetsScreen
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -30,14 +32,15 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.materialkolor.dynamicColorScheme
-import com.slapps.cupertino.adaptive.AdaptiveTheme
-import com.slapps.cupertino.adaptive.CupertinoThemeSpec
-import com.slapps.cupertino.adaptive.ExperimentalAdaptiveApi
-import com.slapps.cupertino.adaptive.MaterialThemeSpec
-import com.slapps.cupertino.adaptive.Theme
-import com.slapps.cupertino.decompose.cupertinoPredictiveBackAnimation
-import com.slapps.cupertino.theme.darkColorScheme
-import com.slapps.cupertino.theme.lightColorScheme
+import com.robinpcrd.cupertino.adaptive.AdaptiveTheme
+import com.robinpcrd.cupertino.adaptive.CupertinoThemeSpec
+import com.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
+import com.robinpcrd.cupertino.adaptive.MaterialThemeSpec
+import com.robinpcrd.cupertino.adaptive.Shapes
+import com.robinpcrd.cupertino.adaptive.Theme
+import com.robinpcrd.cupertino.decompose.cupertinoPredictiveBackAnimation
+import com.robinpcrd.cupertino.theme.darkColorScheme
+import com.robinpcrd.cupertino.theme.lightColorScheme
 import cupertino.CupertinoWidgetsScreen
 import icons.IconsScreen
 import sections.SectionsScreen
@@ -101,6 +104,7 @@ fun App(rootComponent: RootComponent) {
                         is RootComponent.Child.Adaptive -> AdaptiveWidgetsScreen(c.component)
                         is RootComponent.Child.Icons -> IconsScreen(c.component)
                         is RootComponent.Child.Sections -> SectionsScreen(c.component)
+                        is RootComponent.Child.AdaptiveNative -> AdaptiveNativeWidgetsScreen(c.component)
                     }
                 }
             }
@@ -114,7 +118,7 @@ fun GeneratedAdaptiveTheme(
     target: Theme,
     primaryColor: Color,
     useDarkTheme: Boolean = isSystemInDarkTheme(),
-    shapes: com.slapps.cupertino.adaptive.Shapes = com.slapps.cupertino.adaptive.Shapes(),
+    shapes: Shapes = Shapes(),
     content: @Composable () -> Unit
 ) {
     AdaptiveTheme(
@@ -136,7 +140,7 @@ fun GeneratedAdaptiveTheme(
             colorScheme = if (useDarkTheme)
                 darkColorScheme(accent = primaryColor)
             else lightColorScheme(accent = primaryColor),
-            shapes = com.slapps.cupertino.theme.Shapes(
+            shapes = com.robinpcrd.cupertino.theme.Shapes(
                 extraSmall = shapes.extraSmall,
                 small = shapes.small,
                 medium = shapes.medium,

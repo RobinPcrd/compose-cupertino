@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +21,6 @@
 package adaptive
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -32,9 +32,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
-import androidx.compose.material.icons.filled.ArrowBackIosNew
-import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -50,44 +47,43 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.slapps.cupertino.CupertinoNavigateBackButton
-import com.slapps.cupertino.CupertinoText
-import com.slapps.cupertino.ExperimentalCupertinoApi
-import com.slapps.cupertino.adaptive.AdaptiveAlertDialog
-import com.slapps.cupertino.adaptive.AdaptiveButton
-import com.slapps.cupertino.adaptive.AdaptiveCheckbox
-import com.slapps.cupertino.adaptive.AdaptiveCircularProgressIndicator
-import com.slapps.cupertino.adaptive.AdaptiveDatePicker
-import com.slapps.cupertino.adaptive.AdaptiveFilledIconButton
-import com.slapps.cupertino.adaptive.AdaptiveIconButton
-import com.slapps.cupertino.adaptive.AdaptiveNavigationBar
-import com.slapps.cupertino.adaptive.AdaptiveNavigationBarItem
-import com.slapps.cupertino.adaptive.AdaptiveScaffold
-import com.slapps.cupertino.adaptive.AdaptiveSlider
-import com.slapps.cupertino.adaptive.AdaptiveSwitch
-import com.slapps.cupertino.adaptive.AdaptiveTextButton
-import com.slapps.cupertino.adaptive.AdaptiveTopAppBar
-import com.slapps.cupertino.adaptive.AdaptiveTriStateCheckbox
-import com.slapps.cupertino.adaptive.AdaptiveWidget
-import com.slapps.cupertino.adaptive.ExperimentalAdaptiveApi
-import com.slapps.cupertino.adaptive.icons.AccountCircle
-import com.slapps.cupertino.adaptive.icons.AdaptiveIcons
-import com.slapps.cupertino.adaptive.icons.Add
-import com.slapps.cupertino.adaptive.icons.Create
-import com.slapps.cupertino.adaptive.icons.Delete
-import com.slapps.cupertino.adaptive.icons.Menu
-import com.slapps.cupertino.adaptive.icons.Person
-import com.slapps.cupertino.adaptive.icons.Search
-import com.slapps.cupertino.adaptive.icons.Settings
-import com.slapps.cupertino.adaptive.icons.Share
-import com.slapps.cupertino.adaptive.icons.ThumbUp
-import com.slapps.cupertino.cancel
-import com.slapps.cupertino.default
-import com.slapps.cupertino.rememberCupertinoDatePickerState
+import com.robinpcrd.cupertino.CupertinoNavigateBackButton
+import com.robinpcrd.cupertino.CupertinoText
+import com.robinpcrd.cupertino.ExperimentalCupertinoApi
+import com.robinpcrd.cupertino.adaptive.AdaptiveAlertDialog
+import com.robinpcrd.cupertino.adaptive.AdaptiveButton
+import com.robinpcrd.cupertino.adaptive.AdaptiveCheckbox
+import com.robinpcrd.cupertino.adaptive.AdaptiveCircularProgressIndicator
+import com.robinpcrd.cupertino.adaptive.AdaptiveDatePicker
+import com.robinpcrd.cupertino.adaptive.AdaptiveFilledIconButton
+import com.robinpcrd.cupertino.adaptive.AdaptiveIconButton
+import com.robinpcrd.cupertino.adaptive.AdaptiveNavigationBar
+import com.robinpcrd.cupertino.adaptive.AdaptiveNavigationBarItem
+import com.robinpcrd.cupertino.adaptive.AdaptiveScaffold
+import com.robinpcrd.cupertino.adaptive.AdaptiveSlider
+import com.robinpcrd.cupertino.adaptive.AdaptiveSwitch
+import com.robinpcrd.cupertino.adaptive.AdaptiveTextButton
+import com.robinpcrd.cupertino.adaptive.AdaptiveTopAppBar
+import com.robinpcrd.cupertino.adaptive.AdaptiveTriStateCheckbox
+import com.robinpcrd.cupertino.adaptive.AdaptiveWidget
+import com.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
+import com.robinpcrd.cupertino.adaptive.icons.AccountCircle
+import com.robinpcrd.cupertino.adaptive.icons.AdaptiveIcons
+import com.robinpcrd.cupertino.adaptive.icons.Add
+import com.robinpcrd.cupertino.adaptive.icons.Create
+import com.robinpcrd.cupertino.adaptive.icons.Delete
+import com.robinpcrd.cupertino.adaptive.icons.Menu
+import com.robinpcrd.cupertino.adaptive.icons.Person
+import com.robinpcrd.cupertino.adaptive.icons.Search
+import com.robinpcrd.cupertino.adaptive.icons.Settings
+import com.robinpcrd.cupertino.adaptive.icons.Share
+import com.robinpcrd.cupertino.adaptive.icons.ThumbUp
+import com.robinpcrd.cupertino.cancel
+import com.robinpcrd.cupertino.default
+import com.robinpcrd.cupertino.rememberCupertinoDatePickerState
 
 @OptIn(
     ExperimentalAdaptiveApi::class,
-    ExperimentalLayoutApi::class,
     ExperimentalCupertinoApi::class,
 )
 @Composable

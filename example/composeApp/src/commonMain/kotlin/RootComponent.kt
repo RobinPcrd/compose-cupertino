@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +20,8 @@
 
 import adaptive.AdaptiveWidgetsComponent
 import adaptive.DefaultAdaptiveWidgetsComponent
+import adaptivevative.AdaptiveNativeWidgetsComponent
+import adaptivevative.DefaultAdaptiveNativeWidgetsComponent
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
@@ -32,12 +35,12 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.backhandler.BackDispatcher
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.instancekeeper.getOrCreate
+import com.robinpcrd.cupertino.theme.CupertinoColors
+import com.robinpcrd.cupertino.theme.systemBlue
 import cupertino.CupertinoWidgetsComponent
 import cupertino.DefaultCupertinoWidgetsComponent
 import icons.DefaultIconsComponent
 import icons.IconsComponent
-import com.slapps.cupertino.theme.CupertinoColors
-import com.slapps.cupertino.theme.systemBlue
 import kotlinx.serialization.Serializable
 import sections.DefaultSectionsComponent
 import sections.SectionsComponent
@@ -72,6 +75,10 @@ interface RootComponent : ComponentContext {
 
         class Sections(
             val component: SectionsComponent,
+        ) : Child
+
+        class AdaptiveNative(
+            val component: AdaptiveNativeWidgetsComponent
         ) : Child
     }
 }
@@ -143,6 +150,15 @@ class DefaultRootComponent(
                     ),
                 )
 
+            Config.AdaptiveNative ->
+                RootComponent.Child.AdaptiveNative(
+                    DefaultAdaptiveNativeWidgetsComponent(
+                        context = context,
+                        onNavigateBack = this::onBack,
+                        isMaterial = model.isMaterial,
+                    ),
+                )
+
             Config.Cupertino ->
                 RootComponent.Child.Cupertino(
                     DefaultCupertinoWidgetsComponent(
@@ -154,6 +170,7 @@ class DefaultRootComponent(
                             val screen =
                                 when (it) {
                                     RootComponent.Child.Adaptive::class -> Config.Adaptive
+                                    RootComponent.Child.AdaptiveNative::class -> Config.AdaptiveNative
                                     RootComponent.Child.Icons::class -> Config.Icons
                                     RootComponent.Child.Sections::class -> Config.Sections
                                     else -> return@DefaultCupertinoWidgetsComponent
@@ -195,5 +212,8 @@ class DefaultRootComponent(
 
         @Serializable
         data object Sections : Config
+
+        @Serializable
+        data object AdaptiveNative : Config
     }
 }

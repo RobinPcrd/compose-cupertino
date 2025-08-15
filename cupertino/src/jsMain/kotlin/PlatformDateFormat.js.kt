@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
+ * Copyright (c) 2025. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +16,19 @@
  * limitations under the License.
  */
 
-package com.slapps.cupertino
+package com.robinpcrd.cupertino
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.text.intl.Locale
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atTime
+import kotlinx.datetime.number
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlin.js.Date
+import kotlin.time.Instant
 
 actual typealias CalendarLocale = Locale
 
@@ -243,10 +245,10 @@ internal actual object PlatformDateFormat {
             .replace("yy", date.year.toString().takeLast(2), ignoreCase = true)
             .replace("MMMM", monthLong)
             .replace("MMM", monthShort)
-            .replace("MM", date.monthNumber.toStringWithLeadingZero())
-            .replace("M", date.monthNumber.toString())
-            .replace("dd", date.dayOfMonth.toStringWithLeadingZero(), ignoreCase = true)
-            .replace("d", date.dayOfMonth.toString(), ignoreCase = true)
+            .replace("MM", date.month.number.toStringWithLeadingZero())
+            .replace("M", date.month.number.toString())
+            .replace("dd", date.day.toStringWithLeadingZero(), ignoreCase = true)
+            .replace("d", date.day.toString(), ignoreCase = true)
             .replace("hh", date.hour.toStringWithLeadingZero(), ignoreCase = true)
             .replace("h", date.hour.toString(), ignoreCase = true)
             .replace("ii", date.minute.toStringWithLeadingZero(), ignoreCase = true)
