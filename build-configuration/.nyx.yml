@@ -1,0 +1,22 @@
+dryRun: true
+preset: extended
+scheme: SEMVER
+verbosity: INFO
+releaseLenient: true
+commitMessageConventions:
+  enabled:
+    - conventionalCommits
+  items:
+    conventionalCommits:
+      expression: "(?m)^(?<type>[a-zA-Z0-9_]+)(\\((?<scope>[a-zA-Z0-9 \\-_]+)\\))?(!)?:( (?<title>.+))$(?s).*"
+      bumpExpressions:
+        major: '(?s)(?m)^[a-zA-Z0-9_]+(\\([a-zA-Z0-9 \\-_]+\\))?(!: .*|.*^(BREAKING( |-)CHANGE: )).*'
+        minor: '(?s)(?m)^feat(!{0})(\\([a-zA-Z0-9 \\-_]+\\))?: (?!.*^(BREAKING( |-)CHANGE: )).*'
+        patch: '(?s)(?m)(^build|^ci|^fix|^perf|^refactor|^chore)(?!!|.*^(BREAKING( |-)CHANGE: )).*'
+releaseTypes:
+  enabled:
+    - mainline
+    - release
+  items:
+    release:
+      identifiers: [ ]
