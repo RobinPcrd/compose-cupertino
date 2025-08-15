@@ -23,10 +23,10 @@ jobs:
         id: nyx
         uses: mooltiverse/nyx@main
         env:
-          NYX_VERBOSITY: 'WARN'
+          NYX_VERBOSITY: 'INFO'
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          configurationFile: 'build-configuration/.nyx.json'
+          configurationFile: 'build-configuration/.nyx.yml'
           command: 'make'
           changelogPath: CHANGELOG.md
 
