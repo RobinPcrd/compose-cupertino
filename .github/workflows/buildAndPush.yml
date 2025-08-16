@@ -19,6 +19,27 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - name: "🔍 Debug commits since last tag"
+        run: |
+          echo "=== Latest tag ==="
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "No tags found")
+          echo "Latest tag: $LATEST_TAG"
+
+          if [ "$LATEST_TAG" != "No tags found" ]; then
+            echo "=== ALL commits since $LATEST_TAG ==="
+            git log $LATEST_TAG..HEAD --oneline
+            echo ""
+            echo "=== Count of commits since $LATEST_TAG ==="
+            git rev-list $LATEST_TAG..HEAD --count
+            echo ""
+            echo "=== Looking for feat/fix commits since $LATEST_TAG ==="
+            git log $LATEST_TAG..HEAD --oneline --grep="feat"
+            git log $LATEST_TAG..HEAD --oneline --grep="fix"
+          else
+            echo "=== All commits (no previous tags) ==="
+            git log --oneline
+          fi
+
       - name: "🤔 Infer release with Nyx, make changelog"
         id: nyx
         uses: mooltiverse/nyx@main
@@ -57,7 +78,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  build-and-publish:
+  -build-and-publish:
     runs-on: macos-latest
     needs: infer-release
 
