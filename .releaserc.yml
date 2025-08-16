@@ -2,6 +2,8 @@ preset: conventionalcommits
 branches:
   - main
 
+tagFormat: "${version}"  # No "v" prefix
+
 plugins:
   - - "@semantic-release/commit-analyzer"
     - preset: conventionalcommits
@@ -41,7 +43,11 @@ plugins:
             section: "🔨 Chores"
 
   - - "@semantic-release/github"
-    - assets: [ ]
+    - addReleases: true
+      failComment: false
+      successComment: false
+      labels: false
+      assets: [ ]
 
   #- - "@semantic-release/changelog"
   #  - changelogFile: "CHANGELOG.md"
