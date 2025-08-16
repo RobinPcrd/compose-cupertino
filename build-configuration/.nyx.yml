@@ -6,10 +6,11 @@ releaseLenient: true
 changelog:
   includeLatestRelease: true
   sections:
-    "Features": "^feat.*$"
-    "Fixes": "^fix.*$"
+    "Features": "^(feat).*$"
+    "Fixes": "^(fix).*$"
     "Maintenance": "^(build|chore|ci|perf).*$"
-    "Changes": "^refactor.*$"
+    "Changes": "^(refactor).*$"
+    "All": ".*"
   substitutions:
     "(?m)#([0-9]+)(?s)": "[#%s](https://github.com/RobinPcrd/compose-cupertino/issues/%s)"
     "(?m)\\[([a-z0-9]+)\\](?s)": "[[%s](https://github.com/RobinPcrd/compose-cupertino/commit/%s)]"
@@ -22,7 +23,7 @@ commitMessageConventions:
       bumpExpressions:
         major: '(?s)(?m)^[a-zA-Z0-9_]+(\\([a-zA-Z0-9 \\-_]+\\))?(!: .*|.*^(BREAKING( |-)CHANGE: )).*'
         minor: '(?s)(?m)^feat(!{0})(\\([a-zA-Z0-9 \\-_]+\\))?: (?!.*^(BREAKING( |-)CHANGE: )).*'
-        patch: '(?s)(?m)(^build|^chore|^ci|^fix|^perf|^refactor)(?!!|.*^(BREAKING( |-)CHANGE: )).*'
+        patch: '(?s)(?m)^(build|chore|ci|fix|perf|refactor)(?!!|.*^(BREAKING( |-)CHANGE: )).*'
 releaseTypes:
   enabled:
     - mainline
