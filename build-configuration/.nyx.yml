@@ -6,10 +6,10 @@ releaseLenient: true
 changelog:
   includeLatestRelease: true
   sections:
-    "Features": "^feat.*$"
-    "Fixes": "^fix.*$"
-    "Maintenance": "^(build|chore|perf).*$"
-    "Changes": "^refactor.*$"
+    "Features": "^feat.*"
+    "Fixes": "^fix.*"
+    "Maintenance": "^(build|chore|perf).*"
+    "Changes": "^refactor.*"
     "Others": ".*"
   substitutions:
     "(?m)#([0-9]+)(?s)": "[#%s](https://github.com/RobinPcrd/compose-cupertino/issues/%s)"
@@ -19,7 +19,7 @@ commitMessageConventions:
     - conventionalCommits
   items:
     conventionalCommits:
-      expression: '(?m)^(?<type>[a-zA-Z0-9_]+)(\\((?<scope>[a-z ]+)\\))?(!)?:( (?<title>.+))$(?s).*'
+      #expression: '(?m)^(?<type>[a-zA-Z0-9_]+)(\\((?<scope>[a-z ]+)\\))?(!)?:( (?<title>.+))$(?s).*'
       bumpExpressions:
         major: '(?s)(?m)^[a-zA-Z0-9_]+(\\([a-zA-Z0-9 \-_]+\\))?(!: .*|.*^(BREAKING( |-)CHANGE: )).*'
         minor: '(?s)(?m)^feat(!{0})(\\([a-zA-Z0-9 \-_]+\\))?: (?!.*^(BREAKING( |-)CHANGE: )).*'
