@@ -9,8 +9,8 @@ on:
 jobs:
   infer-release:
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.nyx.outputs.version }}
+      #outputs:
+    #version: ${{ steps.nyx.outputs.version }}
 
     steps:
       - name: "✅ Checkout code"
@@ -19,64 +19,23 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: "🔍 Debug commits since last tag"
-        run: |
-          echo "=== Latest tag ==="
-          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "No tags found")
-          echo "Latest tag: $LATEST_TAG"
-
-          if [ "$LATEST_TAG" != "No tags found" ]; then
-            echo "=== ALL commits since $LATEST_TAG ==="
-            git log $LATEST_TAG..HEAD --oneline
-            echo ""
-            echo "=== Count of commits since $LATEST_TAG ==="
-            git rev-list $LATEST_TAG..HEAD --count
-            echo ""
-            echo "=== Looking for feat/fix commits since $LATEST_TAG ==="
-            git log $LATEST_TAG..HEAD --oneline --grep="feat"
-            git log $LATEST_TAG..HEAD --oneline --grep="fix"
-          else
-            echo "=== All commits (no previous tags) ==="
-            git log --oneline
-          fi
-
-      - name: "🤔 Infer release with Nyx, make changelog"
-        id: nyx
-        uses: mooltiverse/nyx@main
-        env:
-          NYX_VERBOSITY: 'INFO'
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "⚙️ Setup Node.js"
+        uses: actions/setup-node@v4
         with:
-          configurationFile: 'build-configuration/.nyx.yml'
-          command: 'make'
-          changelogPath: CHANGELOG.md
+          node-version: '20'
+          cache: 'npm'
 
-      - name: "🟢 Release version is ${{ steps.nyx.outputs.version }}"
-        run: echo The release version is ${{ steps.nyx.outputs.version }}
-
-      - name: "✍️ Create Git Tag"
+      - name: "📦 Install semantic-release"
         run: |
-          git tag ${{ steps.nyx.outputs.version }}
-          git push origin ${{ steps.nyx.outputs.version }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          npm install -g semantic-release
+        # npm install -g @semantic-release/changelog
+        # npm install -g @semantic-release/git
 
-      - name: "📖 Read Changelog for Release Notes"
-        id: changelog
-        run: |
-          # Extract the latest changelog entry (assuming a standard Markdown format)
-          awk '/^## / {found++} found == 1 {print}' CHANGELOG.md > latest-changelog.md
+      - name: "🚀 Run semantic-release"
+        id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: "🌊 Create GitHub Release"
-        uses: ncipollo/release-action@v1.14.0
-        with:
-          tag: ${{ steps.nyx.outputs.version }}
-          name: Release ${{ steps.nyx.outputs.version }}
-          bodyFile: latest-changelog.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: semantic-release
 
   build-and-publish:
     runs-on: macos-latest
