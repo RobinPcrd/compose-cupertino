@@ -43,8 +43,7 @@ plugins:
             section: "🔨 Chores"
 
   - - "@semantic-release/github"
-    - addReleases: true
-      failComment: false
+    - failComment: false
       successComment: false
       labels: false
       assets: [ ]
