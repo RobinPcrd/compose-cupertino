@@ -9,8 +9,10 @@ on:
 jobs:
   infer-release:
     runs-on: ubuntu-latest
-      #outputs:
-    #version: ${{ steps.nyx.outputs.version }}
+    outputs:
+      version: ${{ steps.semantic.outputs.new-release-version }}
+      released: ${{ steps.semantic.outputs.new-release-published }}
+    # version: ${{ steps.nyx.outputs.version }}
 
     steps:
       - name: "✅ Checkout code"
@@ -31,6 +33,7 @@ jobs:
           npm install -g @semantic-release/release-notes-generator
           npm install -g @semantic-release/commit-analyzer
           npm install -g @semantic-release/github
+          npm install -g conventional-changelog-conventionalcommits
         # npm install -g @semantic-release/changelog
         # npm install -g @semantic-release/git
 
