@@ -13,7 +13,7 @@ permissions:
   id-token: write # Required by actions/configure-pages
 
 jobs:
-  -build-and-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
