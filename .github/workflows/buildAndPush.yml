@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
-        # cache: 'npm'
+          cache: 'npm'
 
       - name: "📦 Install semantic-release"
         run: npm ci
@@ -42,6 +42,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+
+      - name: "🔍 Debug semantic-release outputs"
+        run: |
+          echo "Version: '${{ steps.semantic.outputs.new-release-version }}'"
+          echo "Released: '${{ steps.semantic.outputs.new-release-published }}'"
 
   build-and-publish:
     runs-on: macos-latest
