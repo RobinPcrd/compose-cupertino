@@ -31,7 +31,45 @@ cupertino-native = { group = "io.github.robinpcrd", name = "cupertino-native", v
 cupertino-icons-extended = { group = "io.github.robinpcrd", name = "cupertino-icons-extended", version.ref = "cupertino" }
 ```
 
-This package is also available via GitHub packages.
+## 🔄 Migration
+
+### From alexzhirkevich/compose-cupertino
+
+If you're migrating
+from [alexzhirkevich/compose-cupertino](https://github.com/alexzhirkevich/compose-cupertino), update
+your imports:
+
+```kotlin
+// Before
+import io.github.alexzhirkevich.cupertino.*
+
+// After  
+import io.github.robinpcrd.cupertino.*
+```
+
+**Find and replace across your project:**
+
+- Find: `io.github.alexzhirkevich.cupertino`
+- Replace: `io.github.robinpcrd.cupertino`
+
+### From schott12521/compose-cupertino
+
+If you're migrating
+from [schott12521/compose-cupertino](https://github.com/schott12521/compose-cupertino), update your
+imports:
+
+```kotlin
+// Before
+import com.slapps.cupertino.*
+
+// After
+import io.github.robinpcrd.cupertino.*
+```
+
+**Find and replace across your project:**
+
+- Find: `com.slapps.cupertino`
+- Replace: `io.github.robinpcrd.cupertino`
 
 ## Try it
 
