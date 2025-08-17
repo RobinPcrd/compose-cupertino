@@ -10,8 +10,8 @@ jobs:
   infer-release:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.semantic.outputs.new-release-version }}
-      released: ${{ steps.semantic.outputs.new-release-published }}
+      version: ${{ steps.get_version.outputs.version }}
+      released: ${{ steps.get_version.outputs.released }}
     # version: ${{ steps.nyx.outputs.version }}
 
     steps:
@@ -43,14 +43,24 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
 
-      - name: "🔍 Debug semantic-release outputs"
+      - name: "🔍 Get released version"
+        id: get_version
         run: |
-          echo "Version: '${{ steps.semantic.outputs.new-release-version }}'"
-          echo "Released: '${{ steps.semantic.outputs.new-release-published }}'"
+          if [ -f .semantic-release-version ]; then
+            VERSION=$(cat .semantic-release-version)
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "released=true" >> $GITHUB_OUTPUT
+            echo "✅ Released version: $VERSION"
+          else
+            echo "version=" >> $GITHUB_OUTPUT
+            echo "released=false" >> $GITHUB_OUTPUT
+            echo "❌ No release created"
+          fi
 
   build-and-publish:
     runs-on: macos-latest
     needs: infer-release
+    if: needs.infer-release.outputs.released == 'true'
 
     steps:
       - name: "✅ Checkout code"

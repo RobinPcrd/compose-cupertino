@@ -43,6 +43,10 @@ plugins:
           - type: chore
             section: "🔨 Chores"
 
+  - - "@semantic-release/exec"
+    - prepareCmd: "echo ${nextRelease.version} > .semantic-release-version"
+      publishCmd: "echo 'Released version ${nextRelease.version}'"
+
   - - "@semantic-release/github"
     - failComment: false
       successComment: false
