@@ -77,7 +77,7 @@ Wanna see what the library feels like? The latest version builds and deploys the
 
 # License
 
-Note: As of release 3.0.0, this forked library has been updated copyright headers to fully comply
+Note: As of release [3.0.0](https://github.com/RobinPcrd/compose-cupertino/releases/tag/3.0.0), this forked library has been updated copyright headers to fully comply
 with the Apache 2.0 license copied from the
 original: https://github.com/alexzhirkevich/compose-cupertino/blob/master/LICENSE.txt
 
