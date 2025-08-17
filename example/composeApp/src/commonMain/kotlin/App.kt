@@ -38,12 +38,14 @@ import io.github.robinpcrd.cupertino.adaptive.AdaptiveTheme
 import io.github.robinpcrd.cupertino.adaptive.CupertinoThemeSpec
 import io.github.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
 import io.github.robinpcrd.cupertino.adaptive.MaterialThemeSpec
-import io.github.robinpcrd.cupertino.adaptive.Shapes
 import io.github.robinpcrd.cupertino.adaptive.Theme
 import io.github.robinpcrd.cupertino.decompose.cupertinoPredictiveBackAnimation
 import io.github.robinpcrd.cupertino.theme.darkColorScheme
 import io.github.robinpcrd.cupertino.theme.lightColorScheme
 import sections.SectionsScreen
+import androidx.compose.material3.Shapes as Material3Shapes
+import io.github.robinpcrd.cupertino.adaptive.Shapes as AdaptiveShapes
+import io.github.robinpcrd.cupertino.theme.Shapes as CupertinoShapes
 
 
 expect val IsIos: Boolean
@@ -118,7 +120,7 @@ fun GeneratedAdaptiveTheme(
     target: Theme,
     primaryColor: Color,
     useDarkTheme: Boolean = isSystemInDarkTheme(),
-    shapes: Shapes = Shapes(),
+    shapes: AdaptiveShapes = AdaptiveShapes(),
     content: @Composable () -> Unit
 ) {
     AdaptiveTheme(
@@ -128,7 +130,7 @@ fun GeneratedAdaptiveTheme(
                 seedColor = primaryColor,
                 isDark = useDarkTheme
             ),
-            shapes = androidx.compose.material3.Shapes(
+            shapes = Material3Shapes(
                 extraSmall = shapes.extraSmall,
                 small = shapes.small,
                 medium = shapes.medium,
@@ -140,7 +142,7 @@ fun GeneratedAdaptiveTheme(
             colorScheme = if (useDarkTheme)
                 darkColorScheme(accent = primaryColor)
             else lightColorScheme(accent = primaryColor),
-            shapes = io.github.robinpcrd.cupertino.theme.Shapes(
+            shapes = CupertinoShapes(
                 extraSmall = shapes.extraSmall,
                 small = shapes.small,
                 medium = shapes.medium,
