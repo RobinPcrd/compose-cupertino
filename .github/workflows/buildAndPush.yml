@@ -24,24 +24,24 @@ jobs:
       - name: "⚙️ Setup Node.js"
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "lts/*"
         # cache: 'npm'
 
       - name: "📦 Install semantic-release"
-        run: |
-          npm install -g semantic-release
-          npm install -g @semantic-release/release-notes-generator
-          npm install -g @semantic-release/commit-analyzer
-          npm install -g @semantic-release/github
-          npm install -g conventional-changelog-conventionalcommits
-        # npm install -g @semantic-release/changelog
-        # npm install -g @semantic-release/git
+        run: npm ci
+      #     npm install -g semantic-release
+      #     npm install -g @semantic-release/release-notes-generator
+      #     npm install -g @semantic-release/commit-analyzer
+      #     npm install -g @semantic-release/github
+      #     npm install -g conventional-changelog-conventionalcommits
+      #     npm install -g @semantic-release/changelog
+      #     npm install -g @semantic-release/git
 
       - name: "🚀 Run semantic-release"
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: semantic-release
+        run: npx semantic-release
 
   build-and-publish:
     runs-on: macos-latest

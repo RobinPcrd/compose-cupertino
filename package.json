@@ -1,0 +1,28 @@
+{
+  "name": "compose-cupertino",
+  "version": "1.0.0",
+  "description": "Kotlin Multiplatform library for using Apple inspired components",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobinPcrd/compose-cupertino.git"
+  },
+  "keywords": [],
+  "author": "Robin Picard",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/RobinPcrd/compose-cupertino/issues"
+  },
+  "homepage": "https://github.com/RobinPcrd/compose-cupertino#readme",
+  "devDependencies": {
+    "semantic-release": "^24.2.7",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/github": "^11.0.4",
+    "@semantic-release/release-notes-generator": "^14.0.3"
+  }
+}

@@ -12,3 +12,4 @@ xcuserdata
 .kotlin/
 **/.kotlin/
 /.kotlin/
+/node_modules
