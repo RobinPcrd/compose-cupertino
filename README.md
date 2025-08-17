@@ -1,10 +1,10 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.robinpcrd/cupertino/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.robinpcrd/cupertino)
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.robinpcrd/cupertino-core)](https://central.sonatype.com/artifact/io.github.robinpcrd/cupertino-core)
 
-[![Main Workflow](https://github.com/robinpcrd/compose-cupertino/actions/workflows/buildAndPush.yml/badge.svg)](https://github.com/robinpcrd/robinpcrd/compose-cupertino/actions/workflows/buildAndPush.yml)
+[![Main Workflow](https://github.com/robinpcrd/compose-cupertino/actions/workflows/buildAndPush.yml/badge.svg)](https://github.com/robinpcrd/compose-cupertino/actions/workflows/buildAndPush.yml)
 
 # compose-cupertino
 
-This is a fork of [alexzhirkevich/compose-cupertino](https://github.com/alexzhirkevich/compose-cupertino) except its been updated to work with CMP 1.7+
+This is a fork of [schott12521/compose-cupertino](https://github.com/schott12521/compose-cupertino)
 
 Additionally this repo has automated builds to enable faster releases, to take advantage of new compose multiplatform features as they become available.
 
@@ -39,11 +39,14 @@ Wanna see what the library feels like? The latest version builds and deploys the
 
 # License
 
-Note: As of release 2.0.8, this forked library has been updated copyright headers to fully comply with the Apache 2.0 license copied from the original: https://github.com/alexzhirkevich/compose-cupertino/blob/master/LICENSE.txt
+Note: As of release 3.0.0, this forked library has been updated copyright headers to fully comply
+with the Apache 2.0 license copied from the
+original: https://github.com/alexzhirkevich/compose-cupertino/blob/master/LICENSE.txt
 
 # Contributions
 
-Contributions are always appreciated! Since builds to maven central go through GitHub Actions, we can get your changes in quickly. 
+Contributions are always appreciated! Since builds to maven central go through GitHub Actions, we
+can get your changes in quickly.
 
 Ensure that the copyright information is included in your file(s):
 
@@ -71,4 +74,4 @@ Ideally you set up Android Studio / IDE to handle copyright notices for you: htt
 
 # Disclaimer
 
-Note this repo is not officially supported in any capacity; changes will be applied upstream when applicable ([example1](https://github.com/alexzhirkevich/compose-cupertino/pull/74), [example2](https://github.com/alexzhirkevich/compose-cupertino/pull/77))
+Forked to maintain active development as upstream projects have been inactive for months.
