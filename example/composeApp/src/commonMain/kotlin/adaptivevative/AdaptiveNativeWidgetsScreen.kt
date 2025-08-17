@@ -37,16 +37,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.robinpcrd.cupertino.CupertinoNavigateBackButton
-import com.robinpcrd.cupertino.CupertinoText
-import com.robinpcrd.cupertino.ExperimentalCupertinoApi
-import com.robinpcrd.cupertino.adaptive.AdaptiveScaffold
-import com.robinpcrd.cupertino.adaptive.AdaptiveSwitch
-import com.robinpcrd.cupertino.adaptive.AdaptiveTopAppBar
-import com.robinpcrd.cupertino.adaptive.AdaptiveWidget
-import com.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
-import com.robinpcrd.cupertino.theme.CupertinoColors
-import com.robinpcrd.cupertino.theme.systemGreen
+import io.github.robinpcrd.cupertino.CupertinoNavigateBackButton
+import io.github.robinpcrd.cupertino.CupertinoText
+import io.github.robinpcrd.cupertino.ExperimentalCupertinoApi
+import io.github.robinpcrd.cupertino.adaptive.AdaptiveScaffold
+import io.github.robinpcrd.cupertino.adaptive.AdaptiveSwitch
+import io.github.robinpcrd.cupertino.adaptive.AdaptiveTopAppBar
+import io.github.robinpcrd.cupertino.adaptive.AdaptiveWidget
+import io.github.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
+import io.github.robinpcrd.cupertino.theme.CupertinoColors
+import io.github.robinpcrd.cupertino.theme.systemGreen
 
 @OptIn(
     ExperimentalAdaptiveApi::class,

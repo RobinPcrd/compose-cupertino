@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.robinpcrd.cupertino.adaptive
+package io.github.robinpcrd.cupertino.adaptive
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.robinpcrd.cupertino
+package io.github.robinpcrd.cupertino
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable

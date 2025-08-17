@@ -35,12 +35,12 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.backhandler.BackDispatcher
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.instancekeeper.getOrCreate
-import com.robinpcrd.cupertino.theme.CupertinoColors
-import com.robinpcrd.cupertino.theme.systemBlue
 import cupertino.CupertinoWidgetsComponent
 import cupertino.DefaultCupertinoWidgetsComponent
 import icons.DefaultIconsComponent
 import icons.IconsComponent
+import io.github.robinpcrd.cupertino.theme.CupertinoColors
+import io.github.robinpcrd.cupertino.theme.systemBlue
 import kotlinx.serialization.Serializable
 import sections.DefaultSectionsComponent
 import sections.SectionsComponent

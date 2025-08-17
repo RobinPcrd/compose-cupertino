@@ -32,17 +32,17 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.materialkolor.dynamicColorScheme
-import com.robinpcrd.cupertino.adaptive.AdaptiveTheme
-import com.robinpcrd.cupertino.adaptive.CupertinoThemeSpec
-import com.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
-import com.robinpcrd.cupertino.adaptive.MaterialThemeSpec
-import com.robinpcrd.cupertino.adaptive.Shapes
-import com.robinpcrd.cupertino.adaptive.Theme
-import com.robinpcrd.cupertino.decompose.cupertinoPredictiveBackAnimation
-import com.robinpcrd.cupertino.theme.darkColorScheme
-import com.robinpcrd.cupertino.theme.lightColorScheme
 import cupertino.CupertinoWidgetsScreen
 import icons.IconsScreen
+import io.github.robinpcrd.cupertino.adaptive.AdaptiveTheme
+import io.github.robinpcrd.cupertino.adaptive.CupertinoThemeSpec
+import io.github.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
+import io.github.robinpcrd.cupertino.adaptive.MaterialThemeSpec
+import io.github.robinpcrd.cupertino.adaptive.Shapes
+import io.github.robinpcrd.cupertino.adaptive.Theme
+import io.github.robinpcrd.cupertino.decompose.cupertinoPredictiveBackAnimation
+import io.github.robinpcrd.cupertino.theme.darkColorScheme
+import io.github.robinpcrd.cupertino.theme.lightColorScheme
 import sections.SectionsScreen
 
 
@@ -140,7 +140,7 @@ fun GeneratedAdaptiveTheme(
             colorScheme = if (useDarkTheme)
                 darkColorScheme(accent = primaryColor)
             else lightColorScheme(accent = primaryColor),
-            shapes = com.robinpcrd.cupertino.theme.Shapes(
+            shapes = io.github.robinpcrd.cupertino.theme.Shapes(
                 extraSmall = shapes.extraSmall,
                 small = shapes.small,
                 medium = shapes.medium,
