@@ -76,7 +76,7 @@ fun WasmApp() {
             Modifier
                 .let {
                     if (mobile) {
-                        it.widthIn(max = 400.dp)
+                        it.widthIn(max = 480.dp)
                     } else {
                         it
                     }
