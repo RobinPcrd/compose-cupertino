@@ -77,7 +77,7 @@ jobs:
       - name: "⚙️ Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: 8.14.3
+          gradle-version: 9.0.0
 
       - name: "🌎 Publish with Gradle"
         run: ./gradlew publish --no-configuration-cache -Pversion=$VERSION --build-cache --daemon --parallel --scan
