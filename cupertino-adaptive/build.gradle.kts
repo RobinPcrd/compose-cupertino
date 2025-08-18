@@ -16,7 +16,6 @@
  * limitations under the License.
  */
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("multiplatform-module-convention")
     alias(libs.plugins.composeJB)

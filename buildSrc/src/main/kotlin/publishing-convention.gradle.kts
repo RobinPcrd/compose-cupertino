@@ -18,8 +18,6 @@
 
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
-import com.vanniktech.maven.publish.SonatypeHost
-import org.gradle.kotlin.dsl.*
 import java.util.Properties
 
 plugins {
@@ -47,7 +45,7 @@ val javadocJar by tasks.registering(Jar::class) {
 }
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
+    publishToMavenCentral(automaticRelease = true)
 
     coordinates(project.group as String, project.name, project.version as String)
     configure(
@@ -76,6 +74,11 @@ mavenPublishing {
                 id.set("alexzhirkevich")
                 name.set("Alexander Zhirkevich")
                 email.set("sasha.zhirkevich@gmail.com")
+            }
+            developer {
+                id.set("schott12521")
+                name.set("Scott Lanoue")
+                email.set("schott12521@gmail.com")
             }
             developer {
                 id.set("robinpcrd")

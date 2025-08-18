@@ -42,7 +42,7 @@ maplibre = "11.13.0"
 material-kolor = "3.0.1"
 serialization = "1.9.0"
 snizzors = "1.0.0"
-vanniktech-mavenPublish="0.30.0"
+vanniktech-mavenPublish = "0.34.0"
 
 [libraries]
 
