@@ -72,34 +72,30 @@ fun AdaptiveTheme(
         LocalTextStyleProvider provides MaterialLocalTextStyle,
     ) {
         when (LocalTheme.current) {
-            Theme.Cupertino -> {
-                MaterialTheme(
-                    colorScheme = material.colorScheme,
-                    shapes = material.shapes,
-                    typography = material.typography
-                ) {
-                    CupertinoTheme(
-                        colorScheme = cupertino.colorScheme,
-                        shapes = cupertino.shapes,
-                        typography = cupertino.typography,
-                        content = content
-                    )
-                }
-            }
-
-            Theme.Material3 -> {
+            Theme.Cupertino -> MaterialTheme(
+                colorScheme = material.colorScheme,
+                shapes = material.shapes,
+                typography = material.typography
+            ) {
                 CupertinoTheme(
                     colorScheme = cupertino.colorScheme,
                     shapes = cupertino.shapes,
-                    typography = cupertino.typography
-                ) {
-                    MaterialTheme(
-                        colorScheme = material.colorScheme,
-                        shapes = material.shapes,
-                        typography = material.typography,
-                        content = content
-                    )
-                }
+                    typography = cupertino.typography,
+                    content = content
+                )
+            }
+
+            Theme.Material3 -> CupertinoTheme(
+                colorScheme = cupertino.colorScheme,
+                shapes = cupertino.shapes,
+                typography = cupertino.typography
+            ) {
+                MaterialTheme(
+                    colorScheme = material.colorScheme,
+                    shapes = material.shapes,
+                    typography = material.typography,
+                    content = content
+                )
             }
         }
     }

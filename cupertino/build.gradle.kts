@@ -36,11 +36,12 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.cupertinoCore)
-            implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.runtime)
             implementation(compose.uiUtil)
-            implementation(libs.datetime)
             implementation(libs.atomicfu)
+            implementation(libs.datetime)
             implementation(libs.serialization)
         }
     }

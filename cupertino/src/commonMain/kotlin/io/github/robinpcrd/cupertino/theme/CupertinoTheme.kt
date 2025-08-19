@@ -16,16 +16,15 @@
  * limitations under the License.
  */
 
-
-
-
 package io.github.robinpcrd.cupertino.theme
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.unit.dp
 import io.github.robinpcrd.cupertino.ExperimentalCupertinoApi
 import io.github.robinpcrd.cupertino.InternalCupertinoApi
 import io.github.robinpcrd.cupertino.LocalContentColor
@@ -56,6 +55,7 @@ fun CupertinoTheme(
         LocalContentColor provides colorScheme.label,
         LocalIndication provides rememberCupertinoIndication(),
         LocalHapticFeedback provides rememberCupertinoHapticFeedback(),
+        LocalMinimumInteractiveComponentSize provides 44.dp, // Minimum iOS interactive component size
         content = content,
     )
 }
