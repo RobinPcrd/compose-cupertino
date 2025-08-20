@@ -22,6 +22,7 @@ plugins {
     alias(libs.plugins.composeJB)
     alias(libs.plugins.compose.compiler)
     id("publishing-convention")
+    alias(libs.plugins.composeCompilerReportGenerator)
 }
 
 kotlin {

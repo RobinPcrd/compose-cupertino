@@ -29,6 +29,7 @@ plugins {
     alias(libs.plugins.serialization)
     id("com.android.application")
     kotlin("multiplatform")
+    alias(libs.plugins.composeCompilerReportGenerator)
 }
 
 kotlin {

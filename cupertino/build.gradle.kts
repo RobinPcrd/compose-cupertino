@@ -23,6 +23,7 @@ plugins {
     alias(libs.plugins.composeJB)
     alias(libs.plugins.compose.compiler)
     id("publishing-convention")
+    alias(libs.plugins.composeCompilerReportGenerator)
 }
 
 kotlin {
@@ -36,11 +37,12 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.cupertinoCore)
-            implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.runtime)
             implementation(compose.uiUtil)
-            implementation(libs.datetime)
             implementation(libs.atomicfu)
+            implementation(libs.datetime)
             implementation(libs.serialization)
         }
     }

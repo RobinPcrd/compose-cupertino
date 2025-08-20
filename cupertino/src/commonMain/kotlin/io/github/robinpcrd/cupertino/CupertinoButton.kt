@@ -16,44 +16,34 @@
  * limitations under the License.
  */
 
-
-
 package io.github.robinpcrd.cupertino
 
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import io.github.robinpcrd.cupertino.CupertinoButtonDefaults.filledButtonColors
-import io.github.robinpcrd.cupertino.CupertinoButtonDefaults.plainButtonColors
 import io.github.robinpcrd.cupertino.theme.CupertinoColors
 import io.github.robinpcrd.cupertino.theme.CupertinoTheme
 import io.github.robinpcrd.cupertino.theme.DefaultAlpha
@@ -101,16 +91,7 @@ fun CupertinoButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-
-    val pressed by interactionSource.collectIsPressedAsState()
-
-    val animatedAlpha by animateFloatAsState(
-        targetValue = if (pressed)
-            CupertinoButtonTokens.PressedPlainButonAlpha
-        else 1f
-    )
-
-    val indication = if (colors.isPlain) null else LocalIndication.current
+    val indication = if (colors.isPlain) PlainButtonIndication else LocalIndication.current
 
     CupertinoSurface(
         onClick = onClick,
@@ -121,20 +102,13 @@ fun CupertinoButton(
         contentColor = colors.contentColor(enabled).value,
         border = border,
         interactionSource = interactionSource,
-        indication = indication
+        indication = indication,
     ) {
         ProvideTextStyle(value = size.textStyle(CupertinoTheme.typography)) {
             Row(
                 Modifier
                     .defaultMinSize(24.dp, 24.dp)
-                    .padding(contentPadding)
-                    .graphicsLayer {
-                        if (colors.isPlain && enabled) {
-                            alpha = if (pressed)
-                                CupertinoButtonTokens.PressedPlainButonAlpha
-                            else animatedAlpha
-                        }
-                    },
+                    .padding(contentPadding),
                 horizontalArrangement = Arrangement
                     .spacedBy(8.dp, Alignment.CenterHorizontally),
                 verticalAlignment = Alignment.CenterVertically,
@@ -143,42 +117,6 @@ fun CupertinoButton(
         }
     }
 }
-
-@ExperimentalCupertinoApi
-@Composable
-fun CupertinoIconButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: CupertinoButtonColors = plainButtonColors(),
-    border: BorderStroke? = null,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable () -> Unit
-) {
-    CupertinoButton(
-        onClick = onClick,
-        modifier = modifier
-            .size(CupertinoButtonTokens.IconButtonSize),
-        enabled = enabled,
-        colors = colors,
-        size = CupertinoButtonSize.Regular,
-        shape = CircleShape,
-        border = border,
-        interactionSource = interactionSource,
-        contentPadding = if (colors.isPlain)
-            ZeroPadding
-        else PaddingValues(8.dp),
-        content = {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                content()
-            }
-        }
-    )
-}
-
 
 @Immutable
 class CupertinoButtonColors internal constructor(
@@ -229,7 +167,6 @@ class CupertinoButtonColors internal constructor(
         return result
     }
 }
-
 
 @Immutable
 object CupertinoButtonDefaults {
@@ -418,8 +355,8 @@ object CupertinoButtonDefaults {
 
 internal object CupertinoButtonTokens {
     const val PressedPlainButonAlpha = .33f
-    val IconButtonSize = 42.dp
+    val IconButtonSize = 44.dp
     const val BorderedButtonAlpha = .2f
 }
 
-private val ZeroPadding = PaddingValues(0.dp)
+internal val ZeroPadding = PaddingValues(0.dp)

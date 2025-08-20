@@ -16,14 +16,13 @@
  * limitations under the License.
  */
 
-
-
 package io.github.robinpcrd.cupertino
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -149,7 +148,12 @@ fun CupertinoIcon(
         modifier =
             modifier
                 .toolingGraphicsLayer()
-                .defaultSizeFor(painter)
+                .then(
+                    if (LocalCupertinoIconSize.current.isSpecified)
+                        Modifier.size(LocalCupertinoIconSize.current.iconSize)
+                    else
+                        Modifier.defaultSizeFor(painter)
+                )
                 .paint(painter, colorFilter = colorFilter, contentScale = ContentScale.Fit)
                 .then(semantics),
     )
@@ -175,3 +179,71 @@ object CupertinoIconDefaults {
 
 // Default icon size, for icons with no intrinsic size information
 private val DefaultIconSizeModifier = Modifier.size(CupertinoIconDefaults.LargeSize)
+
+val LocalCupertinoIconSize =
+    compositionLocalOf<CupertinoIconButtonSize> { CupertinoIconButtonSize.Unspecified }
+
+sealed interface IconSource {
+    val contentDescription: String?
+    val tint: Color
+
+    @Immutable
+    data class Painter(
+        val painter: @Composable () -> androidx.compose.ui.graphics.painter.Painter,
+        override val contentDescription: String? = null,
+        override val tint: Color = Color.Unspecified,
+    ) : IconSource
+
+    @Immutable
+    data class Vector(
+        val vector: @Composable () -> ImageVector,
+        override val contentDescription: String? = null,
+        override val tint: Color = Color.Unspecified,
+    ) : IconSource
+
+    @Immutable
+    data class Bitmap(
+        val bitmap: @Composable () -> ImageBitmap,
+        override val contentDescription: String? = null,
+        override val tint: Color = Color.Unspecified,
+    ) : IconSource
+
+    @Composable
+    fun rememberPainter(): androidx.compose.ui.graphics.painter.Painter {
+        return when (this) {
+            is Painter -> painter()
+            is Vector -> {
+                val vector = vector()
+                rememberVectorPainter(vector)
+            }
+
+            is Bitmap -> {
+                val bitmap = bitmap()
+                remember(bitmap) { BitmapPainter(bitmap) }
+            }
+        }
+    }
+
+    companion object {
+        @Composable
+        fun painter(
+            contentDescription: String? = null,
+            tint: Color = Color.Unspecified,
+            block: @Composable () -> androidx.compose.ui.graphics.painter.Painter,
+        ): IconSource = Painter(block, contentDescription, tint)
+
+        @Composable
+        fun vector(
+            contentDescription: String? = null,
+            tint: Color = Color.Unspecified,
+            block: @Composable () -> ImageVector,
+        ): IconSource = Vector(block, contentDescription, tint)
+
+        @Composable
+        fun bitmap(
+            contentDescription: String? = null,
+            tint: Color = Color.Unspecified,
+            block: @Composable () -> ImageBitmap,
+        ): IconSource = Bitmap(block, contentDescription, tint)
+    }
+}

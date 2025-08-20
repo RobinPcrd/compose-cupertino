@@ -8,6 +8,7 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 composeJB = { id = "org.jetbrains.compose", version.ref = "jetbrainsCompose" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+composeCompilerReportGenerator = { id = "dev.shreyaspatil.compose-compiler-report-generator", version.ref = "composeCompilerReportGenerator" }
 
 [versions]
 
@@ -20,6 +21,7 @@ androidx-activityCompose = "1.11.0-rc01"
 ##                    ⬆ = "1.12.0-alpha05"
 ##                    ⬆ = "1.12.0-alpha06"
 atomicfu = "0.29.0"
+composeCompilerReportGenerator = "1.4.2"
 datetime = "0.7.1-0.6.x-compat"
 decompose = "3.3.0"
 ##     ⬆ = "3.4.0-alpha01"

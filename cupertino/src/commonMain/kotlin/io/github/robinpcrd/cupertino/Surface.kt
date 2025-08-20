@@ -26,8 +26,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -91,9 +94,9 @@ fun CupertinoSurface(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-
     Box(
         modifier = modifier
+            .minimumInteractiveComponentSize()
             .surface(
                 shape = shape,
                 backgroundColor = color,
@@ -106,13 +109,55 @@ fun CupertinoSurface(
                 enabled = enabled,
                 onClick = onClick
             ),
-        propagateMinConstraints = true
+        propagateMinConstraints = true,
     ) {
         CompositionLocalProvider(
             LocalContentColor provides contentColor,
             LocalContainerColor provides color,
             content = content
         )
+    }
+}
+
+@Composable
+@NonRestartableComposable
+fun CupertinoSurface(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    shape: Shape = RectangleShape,
+    color: Color = CupertinoTheme.colorScheme.systemBackground,
+    contentColor: Color = LocalContentColor.current,
+    border: BorderStroke? = null,
+    indication: Indication? = LocalIndication.current,
+    interactionSource: MutableInteractionSource? = null,
+    content: @Composable () -> Unit
+) {
+    CompositionLocalProvider(
+        LocalContentColor provides contentColor,
+    ) {
+        Box(
+            modifier =
+                modifier
+                    .minimumInteractiveComponentSize()
+                    .surface(
+                        shape = shape,
+                        backgroundColor = color,
+                        border = border,
+                        shadowElevation = 0f,
+                    )
+                    .toggleable(
+                        value = checked,
+                        interactionSource = interactionSource,
+                        indication = indication,
+                        enabled = enabled,
+                        onValueChange = onCheckedChange
+                    ),
+            propagateMinConstraints = true,
+        ) {
+            content()
+        }
     }
 }
 

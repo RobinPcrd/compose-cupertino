@@ -16,8 +16,6 @@
  * limitations under the License.
  */
 
-
-
 package adaptive
 
 import androidx.compose.foundation.layout.Arrangement
@@ -47,16 +45,20 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import io.github.robinpcrd.cupertino.CupertinoIconButtonSize
 import io.github.robinpcrd.cupertino.CupertinoNavigateBackButton
 import io.github.robinpcrd.cupertino.CupertinoText
 import io.github.robinpcrd.cupertino.ExperimentalCupertinoApi
+import io.github.robinpcrd.cupertino.IconSource
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveAlertDialog
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveButton
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveCheckbox
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveCircularProgressIndicator
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveDatePicker
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveFilledIconButton
+import io.github.robinpcrd.cupertino.adaptive.AdaptiveFilledIconToggleButton
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveIconButton
+import io.github.robinpcrd.cupertino.adaptive.AdaptiveIconToggleButton
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveNavigationBar
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveNavigationBarItem
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveScaffold
@@ -70,6 +72,9 @@ import io.github.robinpcrd.cupertino.adaptive.ExperimentalAdaptiveApi
 import io.github.robinpcrd.cupertino.adaptive.icons.AccountCircle
 import io.github.robinpcrd.cupertino.adaptive.icons.AdaptiveIcons
 import io.github.robinpcrd.cupertino.adaptive.icons.Add
+import io.github.robinpcrd.cupertino.adaptive.icons.Check
+import io.github.robinpcrd.cupertino.adaptive.icons.CheckCircle
+import io.github.robinpcrd.cupertino.adaptive.icons.Clear
 import io.github.robinpcrd.cupertino.adaptive.icons.Create
 import io.github.robinpcrd.cupertino.adaptive.icons.Delete
 import io.github.robinpcrd.cupertino.adaptive.icons.Menu
@@ -164,15 +169,15 @@ fun AdaptiveWidgetsScreen(component: AdaptiveWidgetsComponent) {
                 }
             }
         },
-    ) {
+    ) { pv ->
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding =
                 PaddingValues(
                     start = 12.dp,
                     end = 12.dp,
-                    top = it.calculateTopPadding() + 12.dp,
-                    bottom = it.calculateBottomPadding(),
+                    top = pv.calculateTopPadding() + 12.dp,
+                    bottom = pv.calculateBottomPadding(),
                 ),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
@@ -229,13 +234,11 @@ fun AdaptiveWidgetsScreen(component: AdaptiveWidgetsComponent) {
             }
 
             item {
-                var alertVisible by remember {
-                    mutableStateOf(false)
-                }
+                var alertVisible by remember { mutableStateOf(false) }
 
-                Row(
+                FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                    itemVerticalAlignment = Alignment.CenterVertically,
                 ) {
                     AdaptiveButton(
                         onClick = {
@@ -285,6 +288,59 @@ fun AdaptiveWidgetsScreen(component: AdaptiveWidgetsComponent) {
                             Text("OK")
                         }
                     }
+                }
+            }
+
+            item {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    itemVerticalAlignment = Alignment.CenterVertically,
+                ) {
+                    var isDefaultButtonChecked by remember { mutableStateOf(false) }
+                    var isFilledButtonChecked by remember { mutableStateOf(false) }
+
+                    AdaptiveIconToggleButton(
+                        checked = isDefaultButtonChecked,
+                        onCheckedChange = {
+                            isDefaultButtonChecked = it
+                        },
+                        icon = IconSource.vector {
+                            if (isDefaultButtonChecked) AdaptiveIcons.Outlined.CheckCircle else AdaptiveIcons.Outlined.Clear
+                        }
+                    )
+                    AdaptiveIconToggleButton(
+                        checked = isDefaultButtonChecked,
+                        onCheckedChange = {
+                            isDefaultButtonChecked = it
+                        },
+                        enabled = false,
+                        icon = IconSource.vector { if (isDefaultButtonChecked) AdaptiveIcons.Outlined.CheckCircle else AdaptiveIcons.Outlined.Clear }
+                    )
+                    AdaptiveFilledIconToggleButton(
+                        checked = isFilledButtonChecked,
+                        onCheckedChange = {
+                            isFilledButtonChecked = it
+                        },
+                        adaptation = {
+                            cupertino {
+                                size = CupertinoIconButtonSize.Large
+                            }
+                        },
+                        icon = IconSource.vector { if (isFilledButtonChecked) AdaptiveIcons.Outlined.Check else AdaptiveIcons.Outlined.Clear }
+                    )
+                    AdaptiveFilledIconToggleButton(
+                        checked = isFilledButtonChecked,
+                        onCheckedChange = {
+                            isFilledButtonChecked = it
+                        },
+                        enabled = false,
+                        adaptation = {
+                            cupertino {
+                                size = CupertinoIconButtonSize.Large
+                            }
+                        },
+                        icon = IconSource.vector { if (isFilledButtonChecked) AdaptiveIcons.Outlined.Check else AdaptiveIcons.Outlined.Clear }
+                    )
                 }
             }
 
