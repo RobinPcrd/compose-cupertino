@@ -16,8 +16,6 @@
  * limitations under the License.
  */
 
-
-
 package io.github.robinpcrd.cupertino.adaptive
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -32,12 +30,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import io.github.robinpcrd.cupertino.CupertinoButtonColors
-import io.github.robinpcrd.cupertino.CupertinoButtonDefaults.filledButtonColors
-import io.github.robinpcrd.cupertino.CupertinoButtonDefaults.plainButtonColors
 import io.github.robinpcrd.cupertino.CupertinoIconButton
+import io.github.robinpcrd.cupertino.CupertinoIconButtonColors
+import io.github.robinpcrd.cupertino.CupertinoIconButtonDefaults
+import io.github.robinpcrd.cupertino.ExperimentalCupertinoApi
 
 @ExperimentalAdaptiveApi
+@ExperimentalCupertinoApi
 @Composable
 fun AdaptiveIconButton(
     onClick: () -> Unit,
@@ -76,6 +75,7 @@ fun AdaptiveIconButton(
 }
 
 @ExperimentalAdaptiveApi
+@ExperimentalCupertinoApi
 @Composable
 fun AdaptiveFilledIconButton(
     onClick: () -> Unit,
@@ -115,9 +115,9 @@ fun AdaptiveFilledIconButton(
 
 @Stable
 class CupertinoIconButtonAdaptation internal constructor(
-    colors: CupertinoButtonColors,
+    colors: CupertinoIconButtonColors,
 ) {
-    var colors: CupertinoButtonColors by mutableStateOf(colors)
+    var colors: CupertinoIconButtonColors by mutableStateOf(colors)
 }
 
 @Stable
@@ -136,11 +136,9 @@ private class IconButtonAdaptation(
     @Composable
     override fun rememberCupertinoAdaptation(): CupertinoIconButtonAdaptation {
         val colors = if (isFilled)
-            filledButtonColors(
-            )
+            CupertinoIconButtonDefaults.filledButtonColors()
         else
-            plainButtonColors(
-            )
+            CupertinoIconButtonDefaults.plainButtonColors()
 
         return remember(colors) {
             CupertinoIconButtonAdaptation(

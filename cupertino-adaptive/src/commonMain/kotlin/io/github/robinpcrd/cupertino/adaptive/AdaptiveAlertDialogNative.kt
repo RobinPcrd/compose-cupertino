@@ -16,8 +16,6 @@
  * limitations under the License.
  */
 
-
-
 package io.github.robinpcrd.cupertino.adaptive
 
 import androidx.compose.foundation.gestures.Orientation

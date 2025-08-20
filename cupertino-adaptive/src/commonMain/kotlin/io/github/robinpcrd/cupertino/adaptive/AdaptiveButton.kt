@@ -16,8 +16,6 @@
  * limitations under the License.
  */
 
-
-
 package io.github.robinpcrd.cupertino.adaptive
 
 import androidx.compose.foundation.BorderStroke
@@ -200,7 +198,6 @@ fun AdaptiveTonalButton(
     )
 }
 
-
 @Stable
 class CupertinoButtonAdaptation internal constructor(
     colors: CupertinoButtonColors,
@@ -237,12 +234,8 @@ private class ButtonAdaptation(
     override fun rememberCupertinoAdaptation(): CupertinoButtonAdaptation {
 
         val colors = when (type) {
-            ButtonType.Filled -> filledButtonColors(
-            )
-
-            ButtonType.Text -> plainButtonColors(
-            )
-
+            ButtonType.Filled -> filledButtonColors()
+            ButtonType.Text -> plainButtonColors()
             ButtonType.Tonal -> tintedButtonColors()
         }
 

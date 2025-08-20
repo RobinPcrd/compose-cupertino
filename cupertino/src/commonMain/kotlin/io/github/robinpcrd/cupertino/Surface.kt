@@ -96,6 +96,7 @@ fun CupertinoSurface(
 ) {
     Box(
         modifier = modifier
+            .minimumInteractiveComponentSize()
             .surface(
                 shape = shape,
                 backgroundColor = color,
@@ -108,7 +109,7 @@ fun CupertinoSurface(
                 enabled = enabled,
                 onClick = onClick
             ),
-        propagateMinConstraints = true
+        propagateMinConstraints = true,
     ) {
         CompositionLocalProvider(
             LocalContentColor provides contentColor,
@@ -129,7 +130,7 @@ fun CupertinoSurface(
     color: Color = CupertinoTheme.colorScheme.systemBackground,
     contentColor: Color = LocalContentColor.current,
     border: BorderStroke? = null,
-    indication: Indication = LocalIndication.current,
+    indication: Indication? = LocalIndication.current,
     interactionSource: MutableInteractionSource? = null,
     content: @Composable () -> Unit
 ) {

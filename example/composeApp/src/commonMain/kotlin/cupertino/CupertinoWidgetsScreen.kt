@@ -16,25 +16,9 @@
  * limitations under the License.
  */
 
-
 @file:OptIn(
     ExperimentalCupertinoApi::class
 )
-/*
- * Copyright (c) 2023 Compose Cupertino project and open source contributors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package cupertino
 
@@ -48,6 +32,7 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -64,8 +49,10 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
@@ -82,6 +69,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.robinpcrd.cupertino.CupertinoActionSheet
 import io.github.robinpcrd.cupertino.CupertinoActionSheetNative
@@ -107,7 +95,11 @@ import io.github.robinpcrd.cupertino.CupertinoDateTimePickerState
 import io.github.robinpcrd.cupertino.CupertinoDropdownMenu
 import io.github.robinpcrd.cupertino.CupertinoIcon
 import io.github.robinpcrd.cupertino.CupertinoIconButton
+import io.github.robinpcrd.cupertino.CupertinoIconButtonDefaults
+import io.github.robinpcrd.cupertino.CupertinoIconButtonSize
 import io.github.robinpcrd.cupertino.CupertinoIconDefaults
+import io.github.robinpcrd.cupertino.CupertinoIconToggleButton
+import io.github.robinpcrd.cupertino.CupertinoIconToggleButtonDefaults
 import io.github.robinpcrd.cupertino.CupertinoNavigationBar
 import io.github.robinpcrd.cupertino.CupertinoNavigationBarItem
 import io.github.robinpcrd.cupertino.CupertinoNavigationTitle
@@ -133,6 +125,7 @@ import io.github.robinpcrd.cupertino.MenuSection
 import io.github.robinpcrd.cupertino.PresentationStyle
 import io.github.robinpcrd.cupertino.adaptive.icons.AdaptiveIcons
 import io.github.robinpcrd.cupertino.adaptive.icons.Add
+import io.github.robinpcrd.cupertino.adaptive.icons.Lock
 import io.github.robinpcrd.cupertino.adaptive.icons.Settings
 import io.github.robinpcrd.cupertino.adaptive.icons.Share
 import io.github.robinpcrd.cupertino.cancel
@@ -369,7 +362,7 @@ private fun Body(
                 }
             ) {
                 SectionItem {
-                    DialogsEsxample()
+                    DialogsExample()
                 }
                 SectionItem {
                     SheetsExamples()
@@ -1113,13 +1106,13 @@ private fun ColorButtons(
                     CupertinoColors.systemBlue(true)
                 )
             },
-            colors = CupertinoButtonDefaults.tintedButtonColors(
-                contentColor = CupertinoColors.systemBlue
+            colors = CupertinoIconButtonDefaults.plainButtonColors(
+                contentColor = CupertinoColors.systemBlue,
             )
         ) {
             CupertinoIcon(
                 imageVector = CupertinoIcons.Default.Paintpalette,
-                contentDescription = null
+                contentDescription = null,
             )
         }
         CupertinoIconButton(
@@ -1129,13 +1122,13 @@ private fun ColorButtons(
                     CupertinoColors.systemGreen(true)
                 )
             },
-            colors = CupertinoButtonDefaults.tintedButtonColors(
-                contentColor = CupertinoColors.systemGreen
+            colors = CupertinoIconButtonDefaults.plainButtonColors(
+                contentColor = CupertinoColors.systemGreen,
             )
         ) {
             CupertinoIcon(
                 imageVector = CupertinoIcons.Default.Paintpalette,
-                contentDescription = null
+                contentDescription = null,
             )
         }
         CupertinoIconButton(
@@ -1145,13 +1138,13 @@ private fun ColorButtons(
                     CupertinoColors.systemPurple(true)
                 )
             },
-            colors = CupertinoButtonDefaults.tintedButtonColors(
-                contentColor = CupertinoColors.systemPurple
+            colors = CupertinoIconButtonDefaults.plainButtonColors(
+                contentColor = CupertinoColors.systemPurple,
             )
         ) {
             CupertinoIcon(
                 imageVector = CupertinoIcons.Default.Paintpalette,
-                contentDescription = null
+                contentDescription = null,
             )
         }
 
@@ -1162,13 +1155,13 @@ private fun ColorButtons(
                     CupertinoColors.systemOrange(true)
                 )
             },
-            colors = CupertinoButtonDefaults.tintedButtonColors(
-                contentColor = CupertinoColors.systemOrange
+            colors = CupertinoIconButtonDefaults.plainButtonColors(
+                contentColor = CupertinoColors.systemOrange,
             )
         ) {
             CupertinoIcon(
                 imageVector = CupertinoIcons.Default.Paintpalette,
-                contentDescription = null
+                contentDescription = null,
             )
         }
         CupertinoIconButton(
@@ -1178,8 +1171,8 @@ private fun ColorButtons(
                     CupertinoColors.systemRed(true)
                 )
             },
-            colors = CupertinoButtonDefaults.tintedButtonColors(
-                contentColor = CupertinoColors.systemRed
+            colors = CupertinoIconButtonDefaults.plainButtonColors(
+                contentColor = CupertinoColors.systemRed,
             )
         ) {
             CupertinoIcon(
@@ -1192,7 +1185,6 @@ private fun ColorButtons(
 
 @Composable
 private fun SectionScope.ButtonsExample() {
-
     SectionItem {
         Row(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -1217,25 +1209,30 @@ private fun SectionScope.ButtonsExample() {
             ) {
                 CupertinoIcon(
                     imageVector = AdaptiveIcons.Outlined.Share,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
             CupertinoIconButton(
                 onClick = {},
-                colors = CupertinoButtonDefaults.tintedButtonColors()
+                colors = CupertinoIconButtonDefaults.filledButtonColors()
             ) {
                 CupertinoIcon(
                     imageVector = AdaptiveIcons.Outlined.Add,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
             CupertinoIconButton(
                 onClick = {},
-                colors = CupertinoButtonDefaults.grayButtonColors()
+                colors = CupertinoIconButtonDefaults.filledButtonColors(
+                    contentColor = CupertinoTheme.colorScheme.accent,
+                    containerColor = CupertinoTheme.colorScheme.quaternarySystemFill,
+                    disabledContentColor = CupertinoTheme.colorScheme.tertiaryLabel,
+                    disabledContainerColor = CupertinoTheme.colorScheme.quaternarySystemFill,
+                )
             ) {
                 CupertinoIcon(
                     imageVector = AdaptiveIcons.Outlined.Settings,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
             CupertinoIconButton(
@@ -1244,7 +1241,7 @@ private fun SectionScope.ButtonsExample() {
             ) {
                 CupertinoIcon(
                     imageVector = AdaptiveIcons.Outlined.Add,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
         }
@@ -1311,11 +1308,156 @@ private fun SectionScope.ButtonsExample() {
             }
         }
     }
+
+    SectionItem {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            IconButtonExampleLayout(
+                button = {
+                    CupertinoIconButton(
+                        onClick = {},
+                        size = CupertinoIconButtonSize.Large,
+                    ) {
+                        CupertinoIcon(
+                            imageVector = AdaptiveIcons.Outlined.Lock,
+                            contentDescription = null,
+                        )
+                    }
+                },
+                description = "Large",
+                descriptionPosition = LabelPosition.TOP,
+            )
+            IconButtonExampleLayout(
+                button = {
+                    CupertinoIconButton(
+                        onClick = {},
+                        size = CupertinoIconButtonSize.Medium,
+                    ) {
+                        CupertinoIcon(
+                            imageVector = AdaptiveIcons.Outlined.Lock,
+                            contentDescription = null,
+                        )
+                    }
+                },
+                description = "Medium",
+                descriptionPosition = LabelPosition.TOP,
+            )
+            IconButtonExampleLayout(
+                button = {
+                    CupertinoIconButton(
+                        onClick = {},
+                        size = CupertinoIconButtonSize.Small,
+                    ) {
+                        CupertinoIcon(
+                            imageVector = AdaptiveIcons.Outlined.Lock,
+                            contentDescription = null,
+                        )
+                    }
+                },
+                description = "Small",
+                descriptionPosition = LabelPosition.TOP,
+            )
+        }
+    }
+
+    SectionItem {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            IconButtonExampleLayout(
+                button = {
+                    var checked by remember { mutableStateOf(false) }
+                    CupertinoIconToggleButton(
+                        checked = checked,
+                        onCheckedChange = { checked = it },
+                        colors = CupertinoIconToggleButtonDefaults.filledButtonColors(),
+                    ) {
+                        CupertinoIcon(
+                            imageVector = AdaptiveIcons.Outlined.Add,
+                            contentDescription = null
+                        )
+                    }
+                },
+                description = "Filled"
+            )
+            IconButtonExampleLayout(
+                button = {
+                    var checked by remember { mutableStateOf(false) }
+                    CupertinoIconToggleButton(
+                        checked = checked,
+                        onCheckedChange = { checked = it },
+                        colors = CupertinoIconToggleButtonDefaults.filledButtonColors(),
+                        enabled = false,
+                    ) {
+                        CupertinoIcon(
+                            imageVector = AdaptiveIcons.Outlined.Add,
+                            contentDescription = null
+                        )
+                    }
+                },
+                description = "Filled\nDisabled"
+            )
+            IconButtonExampleLayout(
+                button = {
+                    var checked by remember { mutableStateOf(false) }
+                    CupertinoIconToggleButton(
+                        checked = checked,
+                        onCheckedChange = { checked = it },
+                    ) {
+                        CupertinoIcon(
+                            imageVector = AdaptiveIcons.Outlined.Add,
+                            contentDescription = null
+                        )
+                    }
+                },
+                description = "Plain",
+            )
+            IconButtonExampleLayout(
+                button = {
+                    var checked by remember { mutableStateOf(false) }
+                    CupertinoIconToggleButton(
+                        checked = checked,
+                        onCheckedChange = { checked = it },
+                        enabled = false,
+                    ) {
+                        CupertinoIcon(
+                            imageVector = AdaptiveIcons.Outlined.Add,
+                            contentDescription = null
+                        )
+                    }
+                },
+                description = "Plain\nDisabled"
+            )
+        }
+    }
 }
+
+@Composable
+private fun IconButtonExampleLayout(
+    button: @Composable () -> Unit,
+    description: String,
+    descriptionPosition: LabelPosition = LabelPosition.BOTTOM,
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        if (descriptionPosition == LabelPosition.BOTTOM)
+            button()
+        CompositionLocalProvider(LocalTextStyle provides CupertinoTheme.typography.caption1) {
+            Text(description, textAlign = TextAlign.Center)
+        }
+        if (descriptionPosition == LabelPosition.TOP)
+            button()
+    }
+}
+
+private enum class LabelPosition { TOP, BOTTOM; }
 
 @OptIn(ExperimentalCupertinoApi::class)
 @Composable
-private fun DialogsEsxample() {
+private fun DialogsExample() {
 
     var alertVisible by remember {
         mutableStateOf(false)
