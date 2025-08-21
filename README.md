@@ -8,12 +8,30 @@ This is a fork of [schott12521/compose-cupertino](https://github.com/schott12521
 
 Additionally this repo has automated builds to enable faster releases, to take advantage of new compose multiplatform features as they become available.
 
-## New features (compared to the OG `compose-cupertino`)
+## New features (compared to schott12521 `compose-cupertino`)
 
-- Updated SwipeBox
-- Fixed Cupertino Date Picker implementations to interact with scrolling correctly
-- Disable content scaling on CupertinoBottomSheetScaffold (https://github.com/alexzhirkevich/compose-cupertino/issues/80)
-- Using Dialogs instead of Popups for CupertinoDialogs (https://github.com/alexzhirkevich/compose-cupertino/issues/78)
+**Icon Toggle Buttons**
+- Added `CupertinoIconToggleButton` and `AdaptiveIconToggleButton` components
+- Support for both plain and filled toggle button styles
+- Icon button size variants (Large, Medium, Small) matching iOS guidelines
+
+**Enhanced Icon Button Architecture**
+- New `IconSource` interface supporting Vector, Painter, and Bitmap icons
+- Refactored icon button implementation with better press feedback
+- Improved `PlainButtonIndication` system
+
+**UIKit Integration Support**
+- Added `hasUIKitContent` flag to `CupertinoScaffold` and related components
+- Added `hasUIKitContent` flag to `AdaptiveScaffold` cupertino adaptation
+- Disables translucent haze/blur effects when using native UIKit views on iOS to prevents rendering issues when embedding UIKit content in Compose
+
+### Technical Improvements
+
+**Build System Updates:**
+- Gradle: Updated to 9.0.0
+- Kotlin: Updated to 2.2.10
+- Android target SDK: Updated to 36
+- Compose and other dependencies updated to latest versions
 
 # Usage
 
