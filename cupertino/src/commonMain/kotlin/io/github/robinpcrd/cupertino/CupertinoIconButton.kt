@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -81,7 +82,7 @@ fun CupertinoIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier.Companion,
     enabled: Boolean = true,
-    colors: CupertinoIconButtonColors = CupertinoIconButtonDefaults.plainButtonColors(),
+    colors: CupertinoIconButtonColors = CupertinoIconButtonDefaults.borderlessButtonColors(),
     border: BorderStroke? = null,
     size: CupertinoIconButtonSize = CupertinoIconButtonSize.Unspecified,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -126,7 +127,7 @@ fun CupertinoIconToggleButton(
     modifier: Modifier = Modifier.Companion,
     enabled: Boolean = true,
     shape: Shape = IconButtonDefaults.filledShape,
-    colors: CupertinoIconToggleButtonColors = CupertinoIconToggleButtonDefaults.plainButtonColors(),
+    colors: CupertinoIconToggleButtonColors = CupertinoIconToggleButtonDefaults.borderlessButtonColors(),
     size: CupertinoIconButtonSize = CupertinoIconButtonSize.Unspecified,
     interactionSource: MutableInteractionSource? = null,
     content: @Composable () -> Unit
@@ -317,6 +318,11 @@ class CupertinoIconToggleButtonColors(
 
 object CupertinoIconButtonDefaults {
 
+    @Deprecated(
+        message = "Use borderlessButtonColors instead",
+        replaceWith = ReplaceWith("borderlessButtonColors(containerColor, contentColor, disabledContainerColor, disabledContentColor)"),
+        level = DeprecationLevel.ERROR,
+    )
     @Composable
     @ReadOnlyComposable
     fun filledButtonColors(
@@ -331,6 +337,11 @@ object CupertinoIconButtonDefaults {
         disabledContentColor = disabledContentColor,
     )
 
+    @Deprecated(
+        message = "Use borderlessButtonColors instead",
+        replaceWith = ReplaceWith("borderlessButtonColors(containerColor, contentColor, disabledContainerColor, disabledContentColor)"),
+        level = DeprecationLevel.ERROR,
+    )
     @Composable
     @ReadOnlyComposable
     fun plainButtonColors(
@@ -344,10 +355,70 @@ object CupertinoIconButtonDefaults {
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
     )
+
+    @Composable
+    @ReadOnlyComposable
+    fun borderlessButtonColors(
+        containerColor: Color = Color.Transparent,
+        contentColor: Color = CupertinoTheme.colorScheme.accent,
+        disabledContainerColor: Color = Color.Transparent,
+        disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
+    ): CupertinoIconButtonColors = CupertinoIconButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor,
+    )
+
+    @Composable
+    @ReadOnlyComposable
+    fun bezeledButtonColors(
+        contentColor: Color = CupertinoTheme.colorScheme.accent,
+        containerColor: Color = contentColor.copy(alpha = CupertinoButtonTokens.BorderedButtonAlpha),
+        disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
+        disabledContainerColor: Color = CupertinoTheme.colorScheme.quaternarySystemFill,
+    ): CupertinoIconButtonColors = CupertinoIconButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor,
+    )
+
+    @Composable
+    @ReadOnlyComposable
+    fun bezeledGrayButtonColors(
+        containerColor: Color = CupertinoTheme.colorScheme.quaternarySystemFill,
+        contentColor: Color = CupertinoTheme.colorScheme.accent,
+        disabledContainerColor: Color = CupertinoTheme.colorScheme.quaternarySystemFill,
+        disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
+    ): CupertinoIconButtonColors = CupertinoIconButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor
+    )
+
+    @Composable
+    @ReadOnlyComposable
+    fun bezeledFilledButtonColors(
+        containerColor: Color = CupertinoTheme.colorScheme.accent,
+        contentColor: Color = Color.White,
+        disabledContainerColor: Color = CupertinoTheme.colorScheme.quaternarySystemFill,
+        disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
+    ): CupertinoIconButtonColors = CupertinoIconButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor
+    )
 }
 
 object CupertinoIconToggleButtonDefaults {
-
+    @Deprecated(
+        message = "Use bezeledFilledButtonColors instead",
+        replaceWith = ReplaceWith("bezeledFilledButtonColors(containerColor, contentColor, disabledContainerColor, disabledContentColor, checkedContainerColor, checkedContentColor)"),
+        level = DeprecationLevel.ERROR,
+    )
     @Composable
     @ReadOnlyComposable
     fun filledButtonColors(
@@ -356,7 +427,30 @@ object CupertinoIconToggleButtonDefaults {
         disabledContainerColor: Color = CupertinoTheme.colorScheme.quaternarySystemFill,
         disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
         checkedContainerColor: Color = CupertinoTheme.colorScheme.accent,
-        checkedContentColor: Color = Color.Companion.White,
+        checkedContentColor: Color = Color.White,
+    ): CupertinoIconToggleButtonColors = CupertinoIconToggleButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor,
+        checkedContainerColor = checkedContainerColor,
+        checkedContentColor = checkedContentColor,
+    )
+
+    @Deprecated(
+        message = "Use borderlessButtonColors instead",
+        replaceWith = ReplaceWith("borderlessButtonColors(containerColor, contentColor, disabledContainerColor, disabledContentColor, checkedContainerColor, checkedContentColor)"),
+        level = DeprecationLevel.ERROR,
+    )
+    @Composable
+    @ReadOnlyComposable
+    fun plainButtonColors(
+        containerColor: Color = Color.Transparent,
+        contentColor: Color = CupertinoTheme.colorScheme.accent,
+        disabledContainerColor: Color = Color.Transparent,
+        disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
+        checkedContainerColor: Color = Color.Transparent,
+        checkedContentColor: Color = CupertinoTheme.colorScheme.accent,
     ): CupertinoIconToggleButtonColors = CupertinoIconToggleButtonColors(
         containerColor = containerColor,
         contentColor = contentColor,
@@ -368,12 +462,12 @@ object CupertinoIconToggleButtonDefaults {
 
     @Composable
     @ReadOnlyComposable
-    fun plainButtonColors(
-        containerColor: Color = Color.Companion.Transparent,
+    fun borderlessButtonColors(
+        containerColor: Color = Color.Transparent,
         contentColor: Color = LocalContentColor.current,
-        disabledContainerColor: Color = Color.Companion.Transparent,
+        disabledContainerColor: Color = Color.Transparent,
         disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
-        checkedContainerColor: Color = Color.Companion.Transparent,
+        checkedContainerColor: Color = Color.Transparent,
         checkedContentColor: Color = CupertinoTheme.colorScheme.accent,
     ): CupertinoIconToggleButtonColors = CupertinoIconToggleButtonColors(
         containerColor = containerColor,
@@ -381,6 +475,64 @@ object CupertinoIconToggleButtonDefaults {
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
         checkedContainerColor = checkedContainerColor,
-        checkedContentColor = checkedContentColor
+        checkedContentColor = checkedContentColor,
+    )
+
+    @Composable
+    @ReadOnlyComposable
+    fun bezeledButtonColors(
+        containerColor: Color = CupertinoTheme.colorScheme.accent.copy(alpha = CupertinoButtonTokens.BorderedButtonAlpha),
+        contentColor: Color = LocalContentColor.current,
+        disabledContainerColor: Color = CupertinoTheme.colorScheme.quaternarySystemFill,
+        disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
+        checkedContainerColor: Color = lerp(
+            CupertinoTheme.colorScheme.accent,
+            LocalContentColor.current,
+            0.2f
+        ),
+        checkedContentColor: Color = Color.White,
+    ): CupertinoIconToggleButtonColors = CupertinoIconToggleButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor,
+        checkedContainerColor = checkedContainerColor,
+        checkedContentColor = checkedContentColor,
+    )
+
+    @Composable
+    @ReadOnlyComposable
+    fun bezeledGrayButtonColors(
+        containerColor: Color = CupertinoTheme.colorScheme.systemGroupedBackground,
+        contentColor: Color = LocalContentColor.current,
+        disabledContainerColor: Color = CupertinoTheme.colorScheme.quaternarySystemFill,
+        disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
+        checkedContainerColor: Color = LocalContentColor.current,
+        checkedContentColor: Color = CupertinoTheme.colorScheme.systemGroupedBackground,
+    ): CupertinoIconToggleButtonColors = CupertinoIconToggleButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor,
+        checkedContainerColor = checkedContainerColor,
+        checkedContentColor = checkedContentColor,
+    )
+
+    @Composable
+    @ReadOnlyComposable
+    fun bezeledFilledButtonColors(
+        containerColor: Color = CupertinoTheme.colorScheme.quaternarySystemFill,
+        contentColor: Color = LocalContentColor.current,
+        disabledContainerColor: Color = CupertinoTheme.colorScheme.quaternarySystemFill,
+        disabledContentColor: Color = CupertinoTheme.colorScheme.tertiaryLabel,
+        checkedContainerColor: Color = CupertinoTheme.colorScheme.accent,
+        checkedContentColor: Color = Color.White,
+    ): CupertinoIconToggleButtonColors = CupertinoIconToggleButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor,
+        checkedContainerColor = checkedContainerColor,
+        checkedContentColor = checkedContentColor,
     )
 }

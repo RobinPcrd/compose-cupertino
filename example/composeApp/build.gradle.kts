@@ -112,6 +112,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.maplibre.android.sdk)
+            implementation(compose.uiTooling)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

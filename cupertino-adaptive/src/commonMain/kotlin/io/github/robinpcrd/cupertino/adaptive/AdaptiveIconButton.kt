@@ -20,9 +20,11 @@ package io.github.robinpcrd.cupertino.adaptive
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -48,7 +50,7 @@ fun AdaptiveIconButton(
 ) {
     AdaptiveWidget(
         adaptation = remember {
-            IconButtonAdaptation(isFilled = false)
+            IconButtonAdaptation(type = IconButtonType.Borderless)
         },
         adaptationScope = adaptation,
         material = {
@@ -87,11 +89,89 @@ fun AdaptiveFilledIconButton(
 ) {
     AdaptiveWidget(
         adaptation = remember {
-            IconButtonAdaptation(isFilled = true)
+            IconButtonAdaptation(type = IconButtonType.BezeledFilled)
         },
         adaptationScope = adaptation,
         material = {
             FilledIconButton(
+                onClick = onClick,
+                modifier = modifier,
+                enabled = enabled,
+                interactionSource = interactionSource,
+                content = content,
+                colors = it.colors,
+            )
+        },
+        cupertino = {
+            CupertinoIconButton(
+                onClick = onClick,
+                modifier = modifier,
+                enabled = enabled,
+                interactionSource = interactionSource,
+                content = content,
+                colors = it.colors
+            )
+        }
+    )
+}
+
+@ExperimentalAdaptiveApi
+@ExperimentalCupertinoApi
+@Composable
+fun AdaptiveOutlinedIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    adaptation: AdaptationScope<CupertinoIconButtonAdaptation, MaterialIconButtonAdaptation>.() -> Unit = {},
+    content: @Composable (() -> Unit)
+) {
+    AdaptiveWidget(
+        adaptation = remember {
+            IconButtonAdaptation(type = IconButtonType.BezeledGray)
+        },
+        adaptationScope = adaptation,
+        material = {
+            OutlinedIconButton(
+                onClick = onClick,
+                modifier = modifier,
+                enabled = enabled,
+                interactionSource = interactionSource,
+                content = content,
+                colors = it.colors,
+            )
+        },
+        cupertino = {
+            CupertinoIconButton(
+                onClick = onClick,
+                modifier = modifier,
+                enabled = enabled,
+                interactionSource = interactionSource,
+                content = content,
+                colors = it.colors
+            )
+        }
+    )
+}
+
+@ExperimentalAdaptiveApi
+@ExperimentalCupertinoApi
+@Composable
+fun AdaptiveTonalIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    adaptation: AdaptationScope<CupertinoIconButtonAdaptation, MaterialIconButtonAdaptation>.() -> Unit = {},
+    content: @Composable (() -> Unit)
+) {
+    AdaptiveWidget(
+        adaptation = remember {
+            IconButtonAdaptation(type = IconButtonType.Bezeled)
+        },
+        adaptationScope = adaptation,
+        material = {
+            FilledTonalIconButton(
                 onClick = onClick,
                 modifier = modifier,
                 enabled = enabled,
@@ -128,17 +208,23 @@ class MaterialIconButtonAdaptation internal constructor(
 
 }
 
+private enum class IconButtonType {
+    Bezeled, BezeledGray, BezeledFilled, Borderless;
+}
+
 @OptIn(ExperimentalAdaptiveApi::class)
 private class IconButtonAdaptation(
-    private val isFilled: Boolean
+    private val type: IconButtonType,
 ) : Adaptation<CupertinoIconButtonAdaptation, MaterialIconButtonAdaptation>() {
 
     @Composable
     override fun rememberCupertinoAdaptation(): CupertinoIconButtonAdaptation {
-        val colors = if (isFilled)
-            CupertinoIconButtonDefaults.filledButtonColors()
-        else
-            CupertinoIconButtonDefaults.plainButtonColors()
+        val colors = when (type) {
+            IconButtonType.Bezeled -> CupertinoIconButtonDefaults.bezeledButtonColors()
+            IconButtonType.BezeledGray -> CupertinoIconButtonDefaults.bezeledGrayButtonColors()
+            IconButtonType.BezeledFilled -> CupertinoIconButtonDefaults.bezeledFilledButtonColors()
+            IconButtonType.Borderless -> CupertinoIconButtonDefaults.borderlessButtonColors()
+        }
 
         return remember(colors) {
             CupertinoIconButtonAdaptation(
@@ -149,9 +235,12 @@ private class IconButtonAdaptation(
 
     @Composable
     override fun rememberMaterialAdaptation(): MaterialIconButtonAdaptation {
-        val colors = if (isFilled) {
-            IconButtonDefaults.filledIconButtonColors()
-        } else IconButtonDefaults.iconButtonColors()
+        val colors = when (type) {
+            IconButtonType.Bezeled -> IconButtonDefaults.filledTonalIconButtonColors()
+            IconButtonType.BezeledGray -> IconButtonDefaults.outlinedIconButtonColors()
+            IconButtonType.BezeledFilled -> IconButtonDefaults.filledIconButtonColors()
+            IconButtonType.Borderless -> IconButtonDefaults.iconButtonColors()
+        }
 
         return remember(colors) {
             MaterialIconButtonAdaptation(

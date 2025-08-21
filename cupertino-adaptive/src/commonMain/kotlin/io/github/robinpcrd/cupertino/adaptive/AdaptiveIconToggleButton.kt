@@ -18,11 +18,13 @@ package io.github.robinpcrd.cupertino.adaptive
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.FilledIconToggleButton
+import androidx.compose.material3.FilledTonalIconToggleButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.IconToggleButtonColors
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.OutlinedIconToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -53,7 +55,7 @@ fun AdaptiveIconToggleButton(
 ) {
     AdaptiveWidget(
         adaptation = remember {
-            IconToggleButtonAdaptation(isFilled = false)
+            IconToggleButtonAdaptation(type = IconToggleButtonType.Borderless)
         },
         adaptationScope = adaptation,
         material = {
@@ -95,48 +97,15 @@ fun AdaptiveIconToggleButton(
     adaptation: AdaptationScope<CupertinoIconToggleButtonAdaptation, MaterialIconToggleButtonAdaptation>.() -> Unit = {},
     icon: IconSource,
 ) {
-    val painter = icon.rememberPainter()
-
-    AdaptiveWidget(
-        adaptation = remember {
-            IconToggleButtonAdaptation(isFilled = false)
-        },
-        adaptationScope = adaptation,
-        material = {
-            IconToggleButton(
-                checked = checked,
-                onCheckedChange = onCheckedChange,
-                modifier = modifier,
-                enabled = enabled,
-                interactionSource = interactionSource,
-                content = {
-                    Icon(
-                        painter = painter,
-                        contentDescription = icon.contentDescription,
-                        tint = icon.tint.takeOrElse { LocalContentColor.current },
-                    )
-                },
-                colors = it.colors,
-            )
-        },
-        cupertino = {
-            CupertinoIconToggleButton(
-                checked = checked,
-                onCheckedChange = onCheckedChange,
-                modifier = modifier,
-                enabled = enabled,
-                interactionSource = interactionSource,
-                colors = it.colors,
-                shape = it.shape,
-                size = it.size,
-                content = {
-                    CupertinoIcon(
-                        painter = painter,
-                        contentDescription = icon.contentDescription,
-                        tint = icon.tint.takeOrElse { LocalContentColor.current },
-                    )
-                },
-            )
+    AdaptiveIconToggleButton(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier,
+        enabled = enabled,
+        interactionSource = interactionSource,
+        adaptation = adaptation,
+        content = {
+            IconContent(icon)
         }
     )
 }
@@ -155,7 +124,7 @@ fun AdaptiveFilledIconToggleButton(
 ) {
     AdaptiveWidget(
         adaptation = remember {
-            IconToggleButtonAdaptation(isFilled = true)
+            IconToggleButtonAdaptation(type = IconToggleButtonType.BezeledFilled)
         },
         adaptationScope = adaptation,
         material = {
@@ -198,29 +167,46 @@ fun AdaptiveFilledIconToggleButton(
     adaptation: AdaptationScope<CupertinoIconToggleButtonAdaptation, MaterialIconToggleButtonAdaptation>.() -> Unit = {},
     icon: IconSource,
 ) {
-    val painter = icon.rememberPainter()
+    AdaptiveFilledIconToggleButton(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier,
+        enabled = enabled,
+        interactionSource = interactionSource,
+        adaptation = adaptation,
+        content = {
+            IconContent(icon)
+        }
+    )
+}
 
+@ExperimentalAdaptiveApi
+@ExperimentalCupertinoApi
+@Composable
+fun AdaptiveTonalIconToggleButton(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    adaptation: AdaptationScope<CupertinoIconToggleButtonAdaptation, MaterialIconToggleButtonAdaptation>.() -> Unit = {},
+    content: @Composable (() -> Unit),
+) {
     AdaptiveWidget(
         adaptation = remember {
-            IconToggleButtonAdaptation(isFilled = true)
+            IconToggleButtonAdaptation(type = IconToggleButtonType.Bezeled)
         },
         adaptationScope = adaptation,
         material = {
-            FilledIconToggleButton(
+            FilledTonalIconToggleButton(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
                 modifier = modifier,
                 enabled = enabled,
                 interactionSource = interactionSource,
+                content = content,
                 colors = it.colors,
                 shape = it.shape,
-                content = {
-                    Icon(
-                        painter = painter,
-                        contentDescription = icon.contentDescription,
-                        tint = icon.tint.takeOrElse { LocalContentColor.current },
-                    )
-                },
             )
         },
         cupertino = {
@@ -233,16 +219,123 @@ fun AdaptiveFilledIconToggleButton(
                 colors = it.colors,
                 shape = it.shape,
                 size = it.size,
-                content = {
-                    CupertinoIcon(
-                        painter = painter,
-                        contentDescription = icon.contentDescription,
-                        tint = icon.tint.takeOrElse { LocalContentColor.current },
-                    )
-                },
+                content = content,
             )
         }
     )
+}
+
+@ExperimentalAdaptiveApi
+@ExperimentalCupertinoApi
+@Composable
+fun AdaptiveTonalIconToggleButton(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    adaptation: AdaptationScope<CupertinoIconToggleButtonAdaptation, MaterialIconToggleButtonAdaptation>.() -> Unit = {},
+    icon: IconSource,
+) {
+    AdaptiveTonalIconToggleButton(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier,
+        enabled = enabled,
+        interactionSource = interactionSource,
+        adaptation = adaptation,
+        content = {
+            IconContent(icon)
+        }
+    )
+}
+
+@ExperimentalAdaptiveApi
+@ExperimentalCupertinoApi
+@Composable
+fun AdaptiveOutlinedIconToggleButton(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    adaptation: AdaptationScope<CupertinoIconToggleButtonAdaptation, MaterialIconToggleButtonAdaptation>.() -> Unit = {},
+    content: @Composable (() -> Unit),
+) {
+    AdaptiveWidget(
+        adaptation = remember {
+            IconToggleButtonAdaptation(type = IconToggleButtonType.BezeledGray)
+        },
+        adaptationScope = adaptation,
+        material = {
+            OutlinedIconToggleButton(
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                modifier = modifier,
+                enabled = enabled,
+                interactionSource = interactionSource,
+                content = content,
+                colors = it.colors,
+                shape = it.shape,
+            )
+        },
+        cupertino = {
+            CupertinoIconToggleButton(
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                modifier = modifier,
+                enabled = enabled,
+                interactionSource = interactionSource,
+                colors = it.colors,
+                shape = it.shape,
+                size = it.size,
+                content = content,
+            )
+        }
+    )
+}
+
+@ExperimentalAdaptiveApi
+@ExperimentalCupertinoApi
+@Composable
+fun AdaptiveOutlinedIconToggleButton(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    adaptation: AdaptationScope<CupertinoIconToggleButtonAdaptation, MaterialIconToggleButtonAdaptation>.() -> Unit = {},
+    icon: IconSource,
+) {
+    AdaptiveOutlinedIconToggleButton(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier,
+        enabled = enabled,
+        interactionSource = interactionSource,
+        adaptation = adaptation,
+        content = {
+            IconContent(icon)
+        }
+    )
+}
+
+@Composable
+private fun IconContent(icon: IconSource) {
+    val painter = icon.rememberPainter()
+    when (LocalTheme.current) {
+        Theme.Cupertino -> CupertinoIcon(
+            painter = painter,
+            contentDescription = icon.contentDescription,
+            tint = icon.tint.takeOrElse { LocalContentColor.current },
+        )
+
+        Theme.Material3 -> Icon(
+            painter = painter,
+            contentDescription = icon.contentDescription,
+            tint = icon.tint.takeOrElse { LocalContentColor.current },
+        )
+    }
 }
 
 @Stable
@@ -265,22 +358,30 @@ class MaterialIconToggleButtonAdaptation internal constructor(
     var shape: Shape by mutableStateOf(shape)
 }
 
+private enum class IconToggleButtonType {
+    Bezeled, BezeledGray, BezeledFilled, Borderless;
+}
+
 @ExperimentalAdaptiveApi
 private class IconToggleButtonAdaptation(
-    private val isFilled: Boolean
+    private val type: IconToggleButtonType,
 ) : Adaptation<CupertinoIconToggleButtonAdaptation, MaterialIconToggleButtonAdaptation>() {
 
     @Composable
     override fun rememberCupertinoAdaptation(): CupertinoIconToggleButtonAdaptation {
-        val colors = if (isFilled)
-            CupertinoIconToggleButtonDefaults.filledButtonColors()
-        else
-            CupertinoIconToggleButtonDefaults.plainButtonColors()
+        val colors = when (type) {
+            IconToggleButtonType.Bezeled -> CupertinoIconToggleButtonDefaults.bezeledButtonColors()
+            IconToggleButtonType.BezeledGray -> CupertinoIconToggleButtonDefaults.bezeledGrayButtonColors()
+            IconToggleButtonType.BezeledFilled -> CupertinoIconToggleButtonDefaults.bezeledFilledButtonColors()
+            IconToggleButtonType.Borderless -> CupertinoIconToggleButtonDefaults.borderlessButtonColors()
+        }
 
-        val shape = if (isFilled)
-            IconButtonDefaults.filledShape
-        else
-            IconButtonDefaults.outlinedShape
+        val shape = when (type) {
+            IconToggleButtonType.Bezeled -> IconButtonDefaults.filledShape
+            IconToggleButtonType.BezeledGray -> IconButtonDefaults.outlinedShape
+            IconToggleButtonType.BezeledFilled -> IconButtonDefaults.filledShape
+            IconToggleButtonType.Borderless -> IconButtonDefaults.outlinedShape
+        }
 
         return remember(colors) {
             CupertinoIconToggleButtonAdaptation(
@@ -292,15 +393,19 @@ private class IconToggleButtonAdaptation(
 
     @Composable
     override fun rememberMaterialAdaptation(): MaterialIconToggleButtonAdaptation {
-        val colors = if (isFilled)
-            IconButtonDefaults.filledIconToggleButtonColors()
-        else
-            IconButtonDefaults.iconToggleButtonColors()
+        val colors = when (type) {
+            IconToggleButtonType.Bezeled -> IconButtonDefaults.filledTonalIconToggleButtonColors()
+            IconToggleButtonType.BezeledGray -> IconButtonDefaults.outlinedIconToggleButtonColors()
+            IconToggleButtonType.BezeledFilled -> IconButtonDefaults.filledIconToggleButtonColors()
+            IconToggleButtonType.Borderless -> IconButtonDefaults.iconToggleButtonColors()
+        }
 
-        val shape = if (isFilled)
-            IconButtonDefaults.filledShape
-        else
-            IconButtonDefaults.outlinedShape
+        val shape = when (type) {
+            IconToggleButtonType.Bezeled -> IconButtonDefaults.filledShape
+            IconToggleButtonType.BezeledGray -> IconButtonDefaults.outlinedShape
+            IconToggleButtonType.BezeledFilled -> IconButtonDefaults.filledShape
+            IconToggleButtonType.Borderless -> IconButtonDefaults.outlinedShape
+        }
 
         return remember(colors, shape) {
             MaterialIconToggleButtonAdaptation(
