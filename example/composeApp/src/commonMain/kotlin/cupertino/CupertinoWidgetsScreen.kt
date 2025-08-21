@@ -32,6 +32,7 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -128,6 +129,7 @@ import io.github.robinpcrd.cupertino.adaptive.icons.Add
 import io.github.robinpcrd.cupertino.adaptive.icons.Lock
 import io.github.robinpcrd.cupertino.adaptive.icons.Settings
 import io.github.robinpcrd.cupertino.adaptive.icons.Share
+import io.github.robinpcrd.cupertino.adaptive.icons.ThumbUp
 import io.github.robinpcrd.cupertino.cancel
 import io.github.robinpcrd.cupertino.default
 import io.github.robinpcrd.cupertino.destructive
@@ -138,6 +140,7 @@ import io.github.robinpcrd.cupertino.icons.filled.Banknote
 import io.github.robinpcrd.cupertino.icons.filled.Gearshape
 import io.github.robinpcrd.cupertino.icons.filled.Person
 import io.github.robinpcrd.cupertino.icons.filled.Pin
+import io.github.robinpcrd.cupertino.icons.filled.Play
 import io.github.robinpcrd.cupertino.icons.filled.Trash
 import io.github.robinpcrd.cupertino.icons.outlined.AppleLogo
 import io.github.robinpcrd.cupertino.icons.outlined.Bookmark
@@ -147,6 +150,7 @@ import io.github.robinpcrd.cupertino.icons.outlined.Iphone
 import io.github.robinpcrd.cupertino.icons.outlined.MoonStars
 import io.github.robinpcrd.cupertino.icons.outlined.Paintpalette
 import io.github.robinpcrd.cupertino.icons.outlined.Paperclip
+import io.github.robinpcrd.cupertino.icons.outlined.Play
 import io.github.robinpcrd.cupertino.icons.outlined.RectangleStack
 import io.github.robinpcrd.cupertino.icons.outlined.SquareAndArrowUp
 import io.github.robinpcrd.cupertino.icons.outlined.SquareSplit1x2
@@ -1106,7 +1110,7 @@ private fun ColorButtons(
                     CupertinoColors.systemBlue(true)
                 )
             },
-            colors = CupertinoIconButtonDefaults.plainButtonColors(
+            colors = CupertinoIconButtonDefaults.bezeledButtonColors(
                 contentColor = CupertinoColors.systemBlue,
             )
         ) {
@@ -1122,7 +1126,7 @@ private fun ColorButtons(
                     CupertinoColors.systemGreen(true)
                 )
             },
-            colors = CupertinoIconButtonDefaults.plainButtonColors(
+            colors = CupertinoIconButtonDefaults.bezeledButtonColors(
                 contentColor = CupertinoColors.systemGreen,
             )
         ) {
@@ -1138,7 +1142,7 @@ private fun ColorButtons(
                     CupertinoColors.systemPurple(true)
                 )
             },
-            colors = CupertinoIconButtonDefaults.plainButtonColors(
+            colors = CupertinoIconButtonDefaults.bezeledButtonColors(
                 contentColor = CupertinoColors.systemPurple,
             )
         ) {
@@ -1155,7 +1159,7 @@ private fun ColorButtons(
                     CupertinoColors.systemOrange(true)
                 )
             },
-            colors = CupertinoIconButtonDefaults.plainButtonColors(
+            colors = CupertinoIconButtonDefaults.bezeledButtonColors(
                 contentColor = CupertinoColors.systemOrange,
             )
         ) {
@@ -1171,7 +1175,7 @@ private fun ColorButtons(
                     CupertinoColors.systemRed(true)
                 )
             },
-            colors = CupertinoIconButtonDefaults.plainButtonColors(
+            colors = CupertinoIconButtonDefaults.bezeledButtonColors(
                 contentColor = CupertinoColors.systemRed,
             )
         ) {
@@ -1183,6 +1187,7 @@ private fun ColorButtons(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun SectionScope.ButtonsExample() {
     SectionItem {
@@ -1204,6 +1209,14 @@ private fun SectionScope.ButtonsExample() {
                     ToggleableState.Indeterminate -> ToggleableState.On
                 }
             })
+        }
+    }
+
+    SectionItem {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             CupertinoIconButton(
                 onClick = {},
             ) {
@@ -1214,7 +1227,7 @@ private fun SectionScope.ButtonsExample() {
             }
             CupertinoIconButton(
                 onClick = {},
-                colors = CupertinoIconButtonDefaults.filledButtonColors()
+                colors = CupertinoIconButtonDefaults.bezeledButtonColors()
             ) {
                 CupertinoIcon(
                     imageVector = AdaptiveIcons.Outlined.Add,
@@ -1223,15 +1236,19 @@ private fun SectionScope.ButtonsExample() {
             }
             CupertinoIconButton(
                 onClick = {},
-                colors = CupertinoIconButtonDefaults.filledButtonColors(
-                    contentColor = CupertinoTheme.colorScheme.accent,
-                    containerColor = CupertinoTheme.colorScheme.quaternarySystemFill,
-                    disabledContentColor = CupertinoTheme.colorScheme.tertiaryLabel,
-                    disabledContainerColor = CupertinoTheme.colorScheme.quaternarySystemFill,
-                )
+                colors = CupertinoIconButtonDefaults.bezeledGrayButtonColors()
             ) {
                 CupertinoIcon(
                     imageVector = AdaptiveIcons.Outlined.Settings,
+                    contentDescription = null,
+                )
+            }
+            CupertinoIconButton(
+                onClick = {},
+                colors = CupertinoIconButtonDefaults.bezeledFilledButtonColors()
+            ) {
+                CupertinoIcon(
+                    imageVector = AdaptiveIcons.Outlined.ThumbUp,
                     contentDescription = null,
                 )
             }
@@ -1371,15 +1388,15 @@ private fun SectionScope.ButtonsExample() {
                     CupertinoIconToggleButton(
                         checked = checked,
                         onCheckedChange = { checked = it },
-                        colors = CupertinoIconToggleButtonDefaults.filledButtonColors(),
+                        size = CupertinoIconButtonSize.Large,
                     ) {
                         CupertinoIcon(
-                            imageVector = AdaptiveIcons.Outlined.Add,
+                            imageVector = if (checked) CupertinoIcons.Filled.Play else CupertinoIcons.Outlined.Play,
                             contentDescription = null
                         )
                     }
                 },
-                description = "Filled"
+                description = "Borderless",
             )
             IconButtonExampleLayout(
                 button = {
@@ -1387,16 +1404,73 @@ private fun SectionScope.ButtonsExample() {
                     CupertinoIconToggleButton(
                         checked = checked,
                         onCheckedChange = { checked = it },
-                        colors = CupertinoIconToggleButtonDefaults.filledButtonColors(),
+                        size = CupertinoIconButtonSize.Large,
+                        colors = CupertinoIconToggleButtonDefaults.bezeledGrayButtonColors(),
+                    ) {
+                        CupertinoIcon(
+                            imageVector = if (checked) CupertinoIcons.Filled.Play else CupertinoIcons.Outlined.Play,
+                            contentDescription = null
+                        )
+                    }
+                },
+                description = "Bezeled\nGray",
+            )
+            IconButtonExampleLayout(
+                button = {
+                    var checked by remember { mutableStateOf(false) }
+                    CupertinoIconToggleButton(
+                        checked = checked,
+                        onCheckedChange = { checked = it },
+                        size = CupertinoIconButtonSize.Large,
+                        colors = CupertinoIconToggleButtonDefaults.bezeledButtonColors(),
+                    ) {
+                        CupertinoIcon(
+                            imageVector = if (checked) CupertinoIcons.Filled.Play else CupertinoIcons.Outlined.Play,
+                            contentDescription = null
+                        )
+                    }
+                },
+                description = "Bezeled",
+            )
+            IconButtonExampleLayout(
+                button = {
+                    var checked by remember { mutableStateOf(false) }
+                    CupertinoIconToggleButton(
+                        checked = checked,
+                        onCheckedChange = { checked = it },
+                        size = CupertinoIconButtonSize.Large,
+                        colors = CupertinoIconToggleButtonDefaults.bezeledFilledButtonColors(),
+                    ) {
+                        CupertinoIcon(
+                            imageVector = if (checked) CupertinoIcons.Filled.Play else CupertinoIcons.Outlined.Play,
+                            contentDescription = null
+                        )
+                    }
+                },
+                description = "Bezeled\nFilled",
+            )
+        }
+    }
+
+    SectionItem {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            IconButtonExampleLayout(
+                button = {
+                    var checked by remember { mutableStateOf(false) }
+                    CupertinoIconToggleButton(
+                        checked = checked,
+                        onCheckedChange = { checked = it },
                         enabled = false,
                     ) {
                         CupertinoIcon(
-                            imageVector = AdaptiveIcons.Outlined.Add,
-                            contentDescription = null
+                            imageVector = if (checked) CupertinoIcons.Filled.Play else CupertinoIcons.Outlined.Play,
+                            contentDescription = null,
                         )
                     }
                 },
-                description = "Filled\nDisabled"
+                description = "Borderless\nDisabled"
             )
             IconButtonExampleLayout(
                 button = {
@@ -1404,30 +1478,16 @@ private fun SectionScope.ButtonsExample() {
                     CupertinoIconToggleButton(
                         checked = checked,
                         onCheckedChange = { checked = it },
-                    ) {
-                        CupertinoIcon(
-                            imageVector = AdaptiveIcons.Outlined.Add,
-                            contentDescription = null
-                        )
-                    }
-                },
-                description = "Plain",
-            )
-            IconButtonExampleLayout(
-                button = {
-                    var checked by remember { mutableStateOf(false) }
-                    CupertinoIconToggleButton(
-                        checked = checked,
-                        onCheckedChange = { checked = it },
+                        colors = CupertinoIconToggleButtonDefaults.bezeledButtonColors(),
                         enabled = false,
                     ) {
                         CupertinoIcon(
-                            imageVector = AdaptiveIcons.Outlined.Add,
+                            imageVector = if (checked) CupertinoIcons.Filled.Play else CupertinoIcons.Outlined.Play,
                             contentDescription = null
                         )
                     }
                 },
-                description = "Plain\nDisabled"
+                description = "Bezeled\nDisabled"
             )
         }
     }
