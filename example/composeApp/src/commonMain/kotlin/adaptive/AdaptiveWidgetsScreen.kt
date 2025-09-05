@@ -58,6 +58,7 @@ import io.github.robinpcrd.cupertino.IconSource
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveAlertDialog
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveButton
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveCheckbox
+import io.github.robinpcrd.cupertino.adaptive.AdaptiveCircularProgressIndicator
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveDatePicker
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveFilledIconButton
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveFilledIconToggleButton
@@ -253,7 +254,7 @@ fun AdaptiveWidgetsScreen(component: AdaptiveWidgetsComponent) {
                         },
                     )
 
-                    //AdaptiveCircularProgressIndicator()
+                    AdaptiveCircularProgressIndicator()
                 }
             }
 
