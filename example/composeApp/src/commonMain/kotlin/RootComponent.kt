@@ -147,6 +147,9 @@ class DefaultRootComponent(
                         context = context,
                         onNavigateBack = this::onBack,
                         isMaterial = model.isMaterial,
+                        onAccentColorChanged = { light, dark ->
+                            model.accentColors.value = light to dark
+                        },
                     ),
                 )
 

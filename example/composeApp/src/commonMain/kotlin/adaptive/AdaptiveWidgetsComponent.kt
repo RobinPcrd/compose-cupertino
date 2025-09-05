@@ -21,6 +21,7 @@ package adaptive
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.ui.graphics.Color
 import com.arkivanov.decompose.ComponentContext
 
 /*
@@ -45,11 +46,17 @@ interface AdaptiveWidgetsComponent {
     fun onThemeChanged()
 
     fun onNavigateBack()
+
+    fun onAccentColorChanged(
+        light: Color,
+        dark: Color,
+    )
 }
 
 class DefaultAdaptiveWidgetsComponent(
     context: ComponentContext,
     private val onNavigateBack: () -> Unit,
+    private val onAccentColorChanged: (light: Color, dark: Color) -> Unit,
     override val isMaterial: MutableState<Boolean>,
 ) : AdaptiveWidgetsComponent,
     ComponentContext by context {
@@ -59,5 +66,12 @@ class DefaultAdaptiveWidgetsComponent(
 
     override fun onThemeChanged() {
         isMaterial.value = !isMaterial.value
+    }
+
+    override fun onAccentColorChanged(
+        light: Color,
+        dark: Color,
+    ) {
+        onAccentColorChanged.invoke(light, dark)
     }
 }

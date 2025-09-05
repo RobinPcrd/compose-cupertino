@@ -16,8 +16,6 @@
  * limitations under the License.
  */
 
-
-
 package io.github.robinpcrd.cupertino.adaptive
 
 import androidx.compose.runtime.Composable
@@ -56,16 +54,22 @@ sealed interface AdaptationScope<C, M> {
 @Stable
 @ExperimentalAdaptiveApi
 abstract class Adaptation<C, M> : AdaptationScope<C, M> {
-    private var cupertino: @Composable C.() -> Unit by mutableStateOf({})
-
-    private var material: @Composable M.() -> Unit by mutableStateOf({})
+    private var cupertino: @Composable C.() -> Unit = {}
+    private var material: @Composable M.() -> Unit = {}
+    private var configVersion by mutableStateOf(0)
 
     override fun cupertino(block: @Composable C.() -> Unit) {
-        cupertino = block
+        if (cupertino != block) {
+            cupertino = block
+            configVersion++
+        }
     }
 
     override fun material(block: @Composable M.() -> Unit) {
-        material = block
+        if (material != block) {
+            material = block
+            configVersion++
+        }
     }
 
     /**
@@ -82,13 +86,13 @@ abstract class Adaptation<C, M> : AdaptationScope<C, M> {
 
     @Composable
     internal fun rememberUpdatedCupertinoAdaptation(): C =
-        key(cupertino) {
-            rememberCupertinoAdaptation().apply { cupertino() }
+        key(configVersion) {
+            rememberCupertinoAdaptation().also { cupertino.invoke(it) }
         }
 
     @Composable
     internal fun rememberUpdatedMaterialAdaptation(): M =
-        key(material) {
-            rememberMaterialAdaptation().apply { material() }
+        key(configVersion) {
+            rememberMaterialAdaptation().also { material.invoke(it) }
         }
 }
