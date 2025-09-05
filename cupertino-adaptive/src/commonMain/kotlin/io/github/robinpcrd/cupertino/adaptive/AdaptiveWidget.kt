@@ -16,11 +16,10 @@
  * limitations under the License.
  */
 
-
-
 package io.github.robinpcrd.cupertino.adaptive
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 
 @Composable
 @ExperimentalAdaptiveApi
@@ -42,7 +41,9 @@ fun <C, M> AdaptiveWidget(
     cupertino: @Composable (C) -> Unit,
     adaptationScope: AdaptationScope<C, M>.() -> Unit,
 ) {
-    adaptation.adaptationScope()
+    LaunchedEffect(adaptationScope) {
+        adaptation.adaptationScope()
+    }
 
     when (LocalTheme.current) {
         Theme.Cupertino -> cupertino(adaptation.rememberUpdatedCupertinoAdaptation())

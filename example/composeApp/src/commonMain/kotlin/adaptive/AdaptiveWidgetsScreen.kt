@@ -32,8 +32,10 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,10 +43,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import io.github.robinpcrd.cupertino.CupertinoIcon
+import io.github.robinpcrd.cupertino.CupertinoIconButtonDefaults
 import io.github.robinpcrd.cupertino.CupertinoIconButtonSize
 import io.github.robinpcrd.cupertino.CupertinoNavigateBackButton
 import io.github.robinpcrd.cupertino.CupertinoText
@@ -85,7 +90,18 @@ import io.github.robinpcrd.cupertino.adaptive.icons.Share
 import io.github.robinpcrd.cupertino.adaptive.icons.ThumbUp
 import io.github.robinpcrd.cupertino.cancel
 import io.github.robinpcrd.cupertino.default
+import io.github.robinpcrd.cupertino.icons.CupertinoIcons
+import io.github.robinpcrd.cupertino.icons.outlined.Paintpalette
 import io.github.robinpcrd.cupertino.rememberCupertinoDatePickerState
+import io.github.robinpcrd.cupertino.theme.CupertinoColors
+import io.github.robinpcrd.cupertino.theme.CupertinoTheme
+import io.github.robinpcrd.cupertino.theme.systemBlue
+import io.github.robinpcrd.cupertino.theme.systemGreen
+import io.github.robinpcrd.cupertino.theme.systemOrange
+import io.github.robinpcrd.cupertino.theme.systemPurple
+import io.github.robinpcrd.cupertino.theme.systemRed
+import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 @OptIn(
     ExperimentalAdaptiveApi::class,
@@ -93,6 +109,28 @@ import io.github.robinpcrd.cupertino.rememberCupertinoDatePickerState
 )
 @Composable
 fun AdaptiveWidgetsScreen(component: AdaptiveWidgetsComponent) {
+    val isDark = CupertinoTheme.colorScheme.isDark
+    val colorList = remember(isDark) {
+        listOf(
+            CupertinoColors.systemRed(isDark),
+            CupertinoColors.systemGreen(isDark),
+            CupertinoColors.systemBlue(isDark),
+            CupertinoColors.systemOrange(isDark),
+            CupertinoColors.systemPurple(isDark)
+        )
+    }
+
+    var testIconButtonColor: Color by remember { mutableStateOf(Color.Unspecified) }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(1_500L)
+            Random.nextInt(0, 4).let {
+                testIconButtonColor = colorList[it]
+            }
+        }
+    }
+
     AdaptiveScaffold(
         topBar = {
             AdaptiveTopAppBar(
@@ -181,6 +219,9 @@ fun AdaptiveWidgetsScreen(component: AdaptiveWidgetsComponent) {
                 ),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            item {
+                ColorButtons(component::onAccentColorChanged, testColor = testIconButtonColor)
+            }
             item {
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -378,6 +419,164 @@ fun AdaptiveWidgetsScreen(component: AdaptiveWidgetsComponent) {
                     },
                 )
             }
+        }
+    }
+}
+
+@OptIn(ExperimentalAdaptiveApi::class, ExperimentalCupertinoApi::class)
+@Composable
+private fun ColorButtons(
+    onColorsChanged: (light: Color, dark: Color) -> Unit,
+    testColor: Color,
+) {
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        AdaptiveIconButton(
+            onClick = {
+                onColorsChanged(
+                    CupertinoColors.systemBlue(false),
+                    CupertinoColors.systemBlue(true)
+                )
+            },
+            adaptation = {
+                cupertino {
+                    colors = CupertinoIconButtonDefaults.bezeledButtonColors(
+                        contentColor = CupertinoColors.systemBlue,
+                    )
+                }
+                material {
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = CupertinoColors.systemBlue,
+                    )
+                }
+            },
+        ) {
+            CupertinoIcon(
+                imageVector = CupertinoIcons.Default.Paintpalette,
+                contentDescription = null,
+            )
+        }
+        AdaptiveIconButton(
+            onClick = {
+                onColorsChanged(
+                    CupertinoColors.systemGreen(false),
+                    CupertinoColors.systemGreen(true)
+                )
+            },
+            adaptation = {
+                cupertino {
+                    colors = CupertinoIconButtonDefaults.bezeledButtonColors(
+                        contentColor = CupertinoColors.systemGreen,
+                    )
+                }
+                material {
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = CupertinoColors.systemGreen,
+                    )
+                }
+            }
+        ) {
+            CupertinoIcon(
+                imageVector = CupertinoIcons.Default.Paintpalette,
+                contentDescription = null,
+            )
+        }
+        AdaptiveIconButton(
+            onClick = {
+                onColorsChanged(
+                    CupertinoColors.systemPurple(false),
+                    CupertinoColors.systemPurple(true)
+                )
+            },
+            adaptation = {
+                cupertino {
+                    colors = CupertinoIconButtonDefaults.bezeledButtonColors(
+                        contentColor = CupertinoColors.systemPurple,
+                    )
+                }
+                material {
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = CupertinoColors.systemPurple,
+                    )
+                }
+            }
+        ) {
+            CupertinoIcon(
+                imageVector = CupertinoIcons.Default.Paintpalette,
+                contentDescription = null,
+            )
+        }
+
+        AdaptiveIconButton(
+            onClick = {
+                onColorsChanged(
+                    CupertinoColors.systemOrange(false),
+                    CupertinoColors.systemOrange(true)
+                )
+            },
+            adaptation = {
+                cupertino {
+                    colors = CupertinoIconButtonDefaults.bezeledButtonColors(
+                        contentColor = CupertinoColors.systemOrange,
+                    )
+                }
+                material {
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = CupertinoColors.systemOrange,
+                    )
+                }
+            }
+        ) {
+            CupertinoIcon(
+                imageVector = CupertinoIcons.Default.Paintpalette,
+                contentDescription = null,
+            )
+        }
+        AdaptiveIconButton(
+            onClick = {
+                onColorsChanged(
+                    CupertinoColors.systemRed(false),
+                    CupertinoColors.systemRed(true)
+                )
+            },
+            adaptation = {
+                cupertino {
+                    colors = CupertinoIconButtonDefaults.bezeledButtonColors(
+                        contentColor = CupertinoColors.systemRed,
+                    )
+                }
+                material {
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = CupertinoColors.systemRed,
+                    )
+                }
+            }
+        ) {
+            CupertinoIcon(
+                imageVector = CupertinoIcons.Default.Paintpalette,
+                contentDescription = null
+            )
+        }
+        AdaptiveIconButton(
+            onClick = {},
+            adaptation = {
+                cupertino {
+                    colors = CupertinoIconButtonDefaults.borderlessButtonColors(
+                        contentColor = testColor,
+                    )
+                }
+                material {
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = testColor,
+                    )
+                }
+            }
+        ) {
+            CupertinoIcon(
+                imageVector = CupertinoIcons.Default.Paintpalette,
+                contentDescription = null,
+            )
         }
     }
 }
