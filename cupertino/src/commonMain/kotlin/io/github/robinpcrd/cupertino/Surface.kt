@@ -129,6 +129,7 @@ fun CupertinoSurface(
     shape: Shape = RectangleShape,
     color: Color = CupertinoTheme.colorScheme.systemBackground,
     contentColor: Color = LocalContentColor.current,
+    shadowElevation: Dp = 0.dp,
     border: BorderStroke? = null,
     indication: Indication? = LocalIndication.current,
     interactionSource: MutableInteractionSource? = null,
@@ -145,7 +146,7 @@ fun CupertinoSurface(
                         shape = shape,
                         backgroundColor = color,
                         border = border,
-                        shadowElevation = 0f,
+                        shadowElevation = with(LocalDensity.current) { shadowElevation.toPx() }
                     )
                     .toggleable(
                         value = checked,
