@@ -19,6 +19,7 @@
 package adaptive
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -33,6 +34,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,6 +48,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import io.github.robinpcrd.cupertino.CupertinoIcon
@@ -68,6 +71,7 @@ import io.github.robinpcrd.cupertino.adaptive.AdaptiveNavigationBar
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveNavigationBarItem
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveScaffold
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveSlider
+import io.github.robinpcrd.cupertino.adaptive.AdaptiveSurface
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveSwitch
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveTextButton
 import io.github.robinpcrd.cupertino.adaptive.AdaptiveTopAppBar
@@ -386,6 +390,10 @@ fun AdaptiveWidgetsScreen(component: AdaptiveWidgetsComponent) {
             }
 
             item {
+                AdaptiveSurfaceItem()
+            }
+
+            item {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
@@ -577,6 +585,66 @@ private fun ColorButtons(
                 imageVector = CupertinoIcons.Default.Paintpalette,
                 contentDescription = null,
             )
+        }
+    }
+}
+
+@OptIn(ExperimentalAdaptiveApi::class)
+@Composable
+private fun AdaptiveSurfaceItem() {
+    var isSurfaceChecked by remember { mutableStateOf(false) }
+
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        AdaptiveSurface(
+            color = CupertinoColors.systemGreen.copy(alpha = 0.1f),
+            modifier = Modifier.size(64.dp)
+        ) {
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Surface",
+                    style = MaterialTheme.typography.labelSmall,
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
+
+        AdaptiveSurface(
+            onClick = {},
+            color = CupertinoColors.systemOrange.copy(alpha = 0.1f),
+            modifier = Modifier.size(64.dp)
+        ) {
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Surface clickable",
+                    style = MaterialTheme.typography.labelSmall,
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
+
+        AdaptiveSurface(
+            checked = isSurfaceChecked,
+            onCheckedChange = {
+                isSurfaceChecked = it
+            },
+            color = CupertinoColors.systemRed.copy(alpha = if (isSurfaceChecked) 0.8f else 0.1f),
+            modifier = Modifier.size(64.dp)
+        ) {
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Surface toggleable",
+                    style = MaterialTheme.typography.labelSmall,
+                    textAlign = TextAlign.Center,
+                )
+            }
         }
     }
 }

@@ -18,9 +18,14 @@
 
 package io.github.robinpcrd.cupertino.adaptive
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Indication
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -47,14 +52,12 @@ fun AdaptiveSurface(
             Surface(
                 modifier = modifier,
                 shape = shape,
-                color =
-                    color.takeOrElse {
-                        MaterialTheme.colorScheme.surface
-                    },
-                contentColor =
-                    contentColor.takeOrElse {
-                        MaterialTheme.colorScheme.onSurface
-                    },
+                color = color.takeOrElse {
+                    MaterialTheme.colorScheme.surface
+                },
+                contentColor = contentColor.takeOrElse {
+                    MaterialTheme.colorScheme.onSurface
+                },
                 shadowElevation = shadowElevation,
                 content = content,
             )
@@ -63,15 +66,128 @@ fun AdaptiveSurface(
             CupertinoSurface(
                 modifier = modifier,
                 shape = shape,
-                color =
-                    color.takeOrElse {
-                        CupertinoTheme.colorScheme.systemBackground
-                    },
-                contentColor =
-                    contentColor.takeOrElse {
-                        LocalContentColor.current
-                    },
+                color = color.takeOrElse {
+                    CupertinoTheme.colorScheme.systemBackground
+                },
+                contentColor = contentColor.takeOrElse {
+                    LocalContentColor.current
+                },
                 shadowElevation = shadowElevation,
+                content = content,
+            )
+        },
+    )
+}
+
+@ExperimentalAdaptiveApi
+@Composable
+fun AdaptiveSurface(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    shape: Shape = RectangleShape,
+    color: Color = Color.Unspecified,
+    contentColor: Color = Color.Unspecified,
+    shadowElevation: Dp = 0.dp,
+    border: BorderStroke? = null,
+    indication: Indication? = LocalIndication.current,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    content: @Composable () -> Unit
+) {
+    AdaptiveWidget(
+        material = {
+            Surface(
+                onClick = onClick,
+                enabled = enabled,
+                modifier = modifier,
+                shape = shape,
+                color = color.takeOrElse {
+                    MaterialTheme.colorScheme.surface
+                },
+                contentColor = contentColor.takeOrElse {
+                    MaterialTheme.colorScheme.onSurface
+                },
+                shadowElevation = shadowElevation,
+                border = border,
+                interactionSource = interactionSource,
+                content = content
+            )
+        },
+        cupertino = {
+            CupertinoSurface(
+                onClick = onClick,
+                modifier = modifier,
+                enabled = enabled,
+                shape = shape,
+                color = color.takeOrElse {
+                    CupertinoTheme.colorScheme.systemBackground
+                },
+                contentColor = contentColor.takeOrElse {
+                    LocalContentColor.current
+                },
+                shadowElevation = shadowElevation,
+                border = border,
+                indication = indication,
+                interactionSource = interactionSource,
+                content = content,
+            )
+        }
+    )
+}
+
+@ExperimentalAdaptiveApi
+@Composable
+fun AdaptiveSurface(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    shape: Shape = RectangleShape,
+    color: Color = Color.Unspecified,
+    contentColor: Color = Color.Unspecified,
+    shadowElevation: Dp = 0.dp,
+    border: BorderStroke? = null,
+    indication: Indication? = LocalIndication.current,
+    interactionSource: MutableInteractionSource? = null,
+    content: @Composable () -> Unit
+) {
+    AdaptiveWidget(
+        material = {
+            Surface(
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                modifier = modifier,
+                enabled = enabled,
+                shape = shape,
+                color = color.takeOrElse {
+                    MaterialTheme.colorScheme.surface
+                },
+                contentColor = contentColor.takeOrElse {
+                    MaterialTheme.colorScheme.onSurface
+                },
+                shadowElevation = shadowElevation,
+                border = border,
+                interactionSource = interactionSource,
+                content = content,
+            )
+        },
+        cupertino = {
+            CupertinoSurface(
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                modifier = modifier,
+                enabled = enabled,
+                shape = shape,
+                color = color.takeOrElse {
+                    CupertinoTheme.colorScheme.systemBackground
+                },
+                contentColor = contentColor.takeOrElse {
+                    LocalContentColor.current
+                },
+                shadowElevation = shadowElevation,
+                border = border,
+                indication = indication,
+                interactionSource = interactionSource,
                 content = content,
             )
         },
