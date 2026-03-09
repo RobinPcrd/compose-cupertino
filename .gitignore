@@ -13,3 +13,4 @@ xcuserdata
 **/.kotlin/
 /.kotlin/
 /node_modules
+example/iosApp/Configuration/Local.xcconfig

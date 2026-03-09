@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
- * Copyright (c) 2025. Robin Picard.
+ * Copyright (c) 2025-2026. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,13 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("com.android.library")
-    kotlin("multiplatform")
+    id("org.jetbrains.kotlin.multiplatform")
+    id("com.android.kotlin.multiplatform.library")
 }
 
 kotlin {
+    jvmToolchain(17)
+
     applyDefaultHierarchyTemplate()
 
     targets.all {
@@ -38,15 +40,18 @@ kotlin {
         }
     }
 
-    androidTarget {
-        compilations.all {
-            compileTaskProvider.configure {
-                compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_11)
-                }
-            }
+    android {
+        namespace = "io.github.robinpcrd.cupertino${project.name.filter { it.isLetter() }}"
+        compileSdk = (findProperty("android.compileSdk") as String).toInt()
+        minSdk = (findProperty("android.minSdk") as String).toInt()
+
+        lint {
+            targetSdk = (findProperty("android.targetSdk") as String).toInt()
         }
-        publishLibraryVariants("release")
+
+        androidResources {
+            enable = true
+        }
     }
 
     iosArm64()
@@ -109,18 +114,6 @@ kotlin {
     }
 }
 
-android {
-    namespace = "io.github.robinpcrd.cupertino${name.filter { it.isLetter() }}"
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
-
-    defaultConfig {
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-        lint {
-            targetSdk = (findProperty("android.targetSdk") as String).toInt()
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+tasks.withType<Test>().configureEach {
+    failOnNoDiscoveredTests = false
 }

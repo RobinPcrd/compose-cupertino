@@ -18,6 +18,14 @@ To build these targets, it is recommended to utilize Android Studio + Run Config
 
 ## Running on iOS
 
+Create `example/iosApp/Configuration/Local.xcconfig` with your Apple Development Team ID:
+
+```
+DEVELOPMENT_TEAM = YOUR_TEAM_ID
+```
+
+This file is gitignored. `Config.xcconfig` imports it via `#include?`.
+
 Ensure that you have a Run Configuration that looks similar to this:
 
 TODO insert image

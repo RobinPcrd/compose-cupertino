@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
- * Copyright (c) 2025. Robin Picard.
+ * Copyright (c) 2025-2026. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 
 plugins {
     // Necessary trick: for the same plugin versions in all sub-modules
-    id(libs.plugins.androidLibrary.get().pluginId) apply false
+    id(libs.plugins.androidKotlinMultiplatformLibrary.get().pluginId) apply false
     id(libs.plugins.kotlinMultiplatform.get().pluginId) apply false
     id(libs.plugins.androidApplication.get().pluginId) apply false
     alias(libs.plugins.compose.compiler) apply false

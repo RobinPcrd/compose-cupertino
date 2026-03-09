@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023-2024. Compose Cupertino project and open source contributors.
  * Copyright (c) 2025. Scott Lanoue.
- * Copyright (c) 2025. Robin Picard.
+ * Copyright (c) 2025-2026. Robin Picard.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,21 +18,21 @@
 
 
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.composeJB)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.serialization)
-    id("com.android.application")
     kotlin("multiplatform")
+    id("com.android.kotlin.multiplatform.library")
     alias(libs.plugins.composeCompilerReportGenerator)
 }
 
 kotlin {
+    jvmToolchain(17)
+
     compilerOptions {
         optIn.addAll(
             "androidx.compose.material3.ExperimentalMaterial3Api",
@@ -40,10 +40,17 @@ kotlin {
         )
     }
 
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+    android {
+        namespace = "com.compose.cupertino.example.shared"
+        compileSdk = (findProperty("android.compileSdk") as String).toInt()
+        minSdk = (findProperty("android.minSdk") as String).toInt()
+
+        lint {
+            targetSdk = (findProperty("android.targetSdk") as String).toInt()
+        }
+
+        androidResources {
+            enable = true
         }
     }
 
@@ -124,37 +131,6 @@ kotlin {
             }
         }
     }
-}
-
-android {
-    namespace = "com.compose.cupertino.example"
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
-
-    defaultConfig {
-        applicationId = "com.compose.cupertino.example"
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-        versionCode = 1
-        versionName = "1.0"
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
 }
 
 compose.desktop {
